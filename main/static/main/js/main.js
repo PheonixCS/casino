@@ -198,10 +198,10 @@ $(document).ready(function(){
     });
 
     // анимации иконок игр
-    $('.hiddenCardMenu').mouseenter(function(e){
-        //console.log(e);
-        
-        $(e.target).stop().animate({opacity:'+=1'},300,false);
+    // desktop Version
+    $('.gameCard').mouseenter(function(e){
+        $(this).children(".hiddenCardMenu").css({'display':'flex'});
+        $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
         $(".play").mouseenter(function(e){
              //alert(1);
              $('.playText').stop().css({'fill':'#282B32'},300,false);
@@ -210,7 +210,25 @@ $(document).ready(function(){
              });
         });
         $('.hiddenCardMenu').mouseleave(function(e){
-            $(e.target).stop().animate({opacity:'-=1'},300,false);
+            if($(e.target).hasClass('hiddenCardMenu')){
+                $(e.target).stop().animate({opacity:'-=1'},300,false);
+            }
         });
     });
-})
+    ////
+    // mobile version
+    $elem = 0;
+    $('.gameCard').click(function(e){
+        $($elem).animate({opacity:'-=1'},300,false);
+        $($elem).css({'display':'none'});
+        e.stopPropagation();
+        $(this).children(".hiddenCardMenu").css({'display':'flex'});
+        $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
+        $elem = $(this).children(".hiddenCardMenu");
+    });
+    $('body').click(function(){
+        $('.hiddenCardMenu').animate({opacity:'-=1'},300,false,function(){
+            $('.hiddenCardMenu').css({'display':'none'});
+        });
+    });
+});

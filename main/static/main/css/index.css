@@ -187,27 +187,89 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    display: none;
 }
 .play {
+    display: flex;
+    width: 100px;
+    height: 40px;
+
+    margin-top: 20px;
     /* играть */
-    margin-top: 30px;
     background: linear-gradient(100.28deg, #CBCBCA -6.54%, #898993 27.62%, #989898 73.59%, #E7E7E7 108.16%);
     box-shadow: 0px 2px 3px rgba(180, 128, 90, 0.57);
     border-radius: 4px;
-    transition: all .4s ease !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
-.play:hover{
+.play:hover .playText{
+    /* Играть */
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #282B32;
+}
+.play:hover {
     /* играть */
+
     background: linear-gradient(92.75deg, #EEBF68 -5.42%, #FFD68C 24.25%, #FFD68C 61.47%, rgba(238, 191, 104, 0.99) 104.75%);
     box-shadow: 0px 2px 3px rgba(180, 128, 90, 0.57);
     border-radius: 4px;
+
 }
-.play:hover>.playText{
-    fill: #282B32;
+.playText{
+    /* Играть */
+
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
 }
-.play svg {
-    height: 50px;
-    width: auto;
+.demo{
+    /* Демо */
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #EEEEEE;
+    cursor: pointer;
+}
+.demo:hover{
+
+    /* Демо */
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.24);
+
+
 }
 .colPartnProgramSubmit {
     position: relative;
@@ -724,9 +786,11 @@
 
         color: #C5BDB1;
     }
+    
     .banerSubmit {
         margin-bottom: 15px;
         margin-top: 15px;
+        display: flex;
     }
 
     .img-mainBaner {
@@ -845,7 +909,7 @@
     }
     #bodyMainContent-menuMobile {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
     }
     #bodyMainContent-menuMobile>svg{
         
@@ -875,6 +939,15 @@
         margin-left: 4%;
         margin-right: 4%;
     }
+    .gameName {
+        text-align: center;
+        font-family: 'Brygada 1918';
+        font-style: normal;
+        font-weight: 600;
+        font-size: calc(7px + 16 * (100vw / 1280));
+        line-height: 23px;
+        color: #FFEFD5;
+    }
 }
 @media (max-width:400px){
     .bodyMainContent-col{
@@ -900,5 +973,15 @@
     }
     .UserAndWin {
         margin-top: 5px;
+    }
+
+    .gameName {
+        text-align: center;
+        font-family: 'Brygada 1918';
+        font-style: normal;
+        font-weight: 600;
+        font-size: calc(7px + 16 * (100vw / 1280));
+        line-height: 23px;
+        color: #FFEFD5;
     }
 }
