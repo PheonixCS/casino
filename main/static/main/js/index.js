@@ -42,60 +42,139 @@ $logonActive = '<svg width="131" height="93" viewBox="0 0 131 93" fill="none" xm
                 '</defs>'+
                 '</svg>';
 $(document).ready(function(){
-    $("#menuMobal").hide();
-    $flagWrapMenu = false;
-    $("#wrapMenuButt").on('click',function(){
-        $('#logo').css({
-            'position':'fixed',
-        });
-        $('#wrapMenu').css({
-            'position':'fixed',
-        });
-        $('#menuMobal').css({
-            'position': 'fixed !important',
-        });
-        $('html').css({
-            'overflow-y':'hidden',
-        });
-        //$("#wrapMenu").animate({right: "-=30px", top: "+=15px"}, { duration: 30, queue: false });
-        $("#menuMobal").stop().show().animate({opacity: "+=1"}, { duration: 30, queue: false });
-        $('#menuMobal').stop().animate({right: "+=101%"}, { duration: 300, queue: false });
-        $flagWrapMenu = true;
-        if($(window).width() > 700 && $(window).width() < 1100){
-            $("#wrapMenu").stop().animate({right: "-=20px", top: "+=30px"}, { duration: 30, queue: false });
-            $('#logAndreg').stop().animate({opacity: "-=1"}, { duration: 10, queue: false });
-            $('#logo').stop().animate({left: "-=76%"}, { duration: 300, queue: false }, function(){
-                alert(1);
-            });
-        }else {
-            $("#wrapMenu").stop().animate({right: "-=30px", top: "+=15px"}, { duration: 30, queue: false });
-        }
-        $("#wrapMenuButt").stop().animate({opacity: "-=1"}, { duration: 50, queue: false}).hide();
-        $("#clouseMenu").stop().animate({opacity: "+=1"}, { duration: 50, queue: false}).show();
-        $("#wrapMenuBlur").stop().animate({opacity: "-=1"}, { duration: 50, queue: false}).hide();
+    $( ".img-mainBaner").children('img').css({
+        'height':$('.mainBaner').height(),
+        
     });
-    $("#clouseMenu").on('click',function(){
-        $('#logo').css({
-            'position':'absolute',
+    if($(window).width() > 700){
+        $rect = document.getElementById("bodyMainContent-menuR1").getBoundingClientRect();
+        $('#bodyMainContent-menuButtoms1').css({
+             'left':$rect.right-$('#bodyMainContent-menuR1').width()/2-$('#bodyMainContent-menuButtoms1').width()/2,
         });
-        $('html').css({
-            'overflow-y':'auto',
+        $rect = document.getElementById("bodyMainContent-menuR2").getBoundingClientRect();
+        $('#bodyMainContent-menuButtoms2').css({
+            'left':$rect.right-$('#bodyMainContent-menuR2').width()/2-$('#bodyMainContent-menuButtoms2').width()/2,
         });
-        $("#menuMobal").stop().animate({opacity: "-=1"}, { duration: 100, queue: false });
-        $("#clouseMenu").stop().animate({opacity: "-=1"}, { duration: 400, queue: false}).hide();
-        $("#wrapMenuButt").stop().animate({opacity: "+=1"}, { duration: 50, queue: false}).show();
-        $("#wrapMenuBlur").stop().animate({opacity: "+=1"}, { duration: 50, queue: false}).show();
+        $rect = document.getElementById("bodyMainContent-menuR3").getBoundingClientRect();
+        $('#bodyMainContent-menuButtoms3').css({
+            'left':$rect.right-$('#bodyMainContent-menuR3').width()/2-$('#bodyMainContent-menuButtoms3').width()/2,
+        });
+        $rect = document.getElementById("bodyMainContent-menuR4").getBoundingClientRect();
+        $('#bodyMainContent-menuButtoms4').css({
+            'left':$rect.right-$('#bodyMainContent-menuR4').width()/2-$('#bodyMainContent-menuButtoms4').width()/2,
+        });
+    }
+    $( window ).on( "resize", function() {
+        $( ".img-mainBaner").children('img').css({
+            'height':$('.mainBaner').height(),
+        });
 
+        if($(window).width() > 700){
+            $rect = document.getElementById("bodyMainContent-menuR1").getBoundingClientRect();
+            $('#bodyMainContent-menuButtoms1').css({
+                 'left':$rect.right-$('#bodyMainContent-menuR1').width()/2-$('#bodyMainContent-menuButtoms1').width()/2,
+            });
+            $rect = document.getElementById("bodyMainContent-menuR2").getBoundingClientRect();
+            $('#bodyMainContent-menuButtoms2').css({
+                'left':$rect.right-$('#bodyMainContent-menuR2').width()/2-$('#bodyMainContent-menuButtoms2').width()/2,
+            });
+            $rect = document.getElementById("bodyMainContent-menuR3").getBoundingClientRect();
+            $('#bodyMainContent-menuButtoms3').css({
+                'left':$rect.right-$('#bodyMainContent-menuR3').width()/2-$('#bodyMainContent-menuButtoms3').width()/2,
+            });
+            $rect = document.getElementById("bodyMainContent-menuR4").getBoundingClientRect();
+            $('#bodyMainContent-menuButtoms4').css({
+                'left':$rect.right-$('#bodyMainContent-menuR4').width()/2-$('#bodyMainContent-menuButtoms4').width()/2,
+            });
+        }
+    });
 
-        $('#menuMobal').stop().animate({right: "-=101%"}, { duration: 300, queue: false }).hide();
-        $flagWrapMenu = false;
-        if($(window).width() > 700 && $(window).width() < 1100){
-            $("#wrapMenu").stop().animate({right: "+=20px", top: "-=30px"}, { duration: 30, queue: false });
-            $('#logAndreg').stop().animate({opacity: "+=1"}, { duration: 400, queue: false });
-            $('#logo').stop().animate({left: "+=0%"}, { duration: 300, queue: false });
-        }
-        else {
-            $("#wrapMenu").stop().animate({right: "+=30px", top: "-=15px"}, { duration: 30, queue: false });
-        }
+    // svg анимации при наведении
+    // анимация кнопки банера
+    $('.banerSubmit').mouseenter(function(){
+        $('.banerSubmit').stop();
+        var s = Snap("#desktopBanerSubmit1Line");
+        s.stop().animate({d: "M316.226 19L322 24.7735L327.774 19L322 13.2265L316.226 19ZM322 20H322V18H322V20Z"}, 100, false);
+        var s = Snap("#desktopBanerSubmit2Line");
+        //             M107 19L2.20537e-06 19
+        s.stop().animate({d: "M107 19L107 19"}, 100, false);
+
+        $("#banerSubmitDownLine").stop().animate({opacity:'+=1'},500,false)
+        var s = Snap("#banerSubmitDownLine2");
+        s.stop().animate({x2: "170"}, 630, false);
+        //<line id="banerSubmitDownLine1" x1="77" y1="8.5" x2="-4.82528e-08" y2="8.49999" stroke="#FFEFD0"/>
+        var s = Snap("#banerSubmitDownLine1");
+        s.stop().animate({x2: "0"}, 630, false);
+        $('.banerSubmit').mouseleave(function(){
+            $('.banerSubmit').stop();
+            var s = Snap("#desktopBanerSubmit1Line");
+            s.stop().animate({d: "M316.226 19L322 24.7735L327.774 19L322 13.2265L316.226 19ZM322 20H437V18H322V20Z"}, 100, false);
+            var s = Snap("#desktopBanerSubmit2Line");
+            //             M107 19L2.20537e-06 19
+            s.stop().animate({d: "M107 19L2.20537e-06 19"}, 100, false);
+            
+            var s = Snap("#banerSubmitDownLine2");
+            s.stop().animate({x2: "85"}, 630, false);
+            //<line id="banerSubmitDownLine1" x1="77" y1="8.5" x2="-4.82528e-08" y2="8.49999" stroke="#FFEFD0"/>
+            var s = Snap("#banerSubmitDownLine1");
+            s.stop().animate({x2: "77"}, 630, false);
+            $("#banerSubmitDownLine").stop().animate({opacity:'-=1'},500,false)
+            $('.banerSubmit').unbind('mouseleave');
+            //$('.banerSubmit').bind('mouseenter');
+        });
+    });
+
+    $('#afteBanerInfo-C3-regSubmit').mouseenter(function(){
+        var s = Snap("#afteBanerInfo-C3-lineLeft");
+        //M112.774 19L107 13.2265L101.226 19L107 24.7735L112.774 19ZM107 18L-8.74228e-08 18L8.74228e-08 20L107 20L107 18Z
+        s.stop().animate({d: "M112.774 19L107 13.2265L101.226 19L107 24.7735L112.774 19ZM107 18L100.774 18L100.774 20L107 20L107 18Z"}, 100, false);
+
+        var s = Snap("#afteBanerInfo-C3-lineRight");
+        //M342.226 19L348 24.7735L353.774 19L348 13.2265L342.226 19ZM348 20H463V18H348V20Z
+        s.stop().animate({d: "M342.226 19L348 24.7735L353.774 19L348 13.2265L342.226 19ZM348 20H352V18H348V20Z"}, 100, false);
+
+        $('#afteBanerInfo-C3-regSubmit').mouseleave(function(){
+            var s = Snap("#afteBanerInfo-C3-lineLeft");
+            s.stop().animate({d: "M112.774 19L107 13.2265L101.226 19L107 24.7735L112.774 19ZM107 18L-8.74228e-08 18L8.74228e-08 20L107 20L107 18Z"}, 100, false);
+
+            var s = Snap("#afteBanerInfo-C3-lineRight");
+            //M342.226 19L348 24.7735L353.774 19L348 13.2265L342.226 19ZM348 20H463V18H348V20Z
+            s.stop().animate({d: "M342.226 19L348 24.7735L353.774 19L348 13.2265L342.226 19ZM348 20H463V18H348V20Z"}, 100, false);
+        });
+    });
+
+    // анимации иконок игр
+    // desktop Version
+    $('.gameCard').mouseenter(function(e){
+        $(this).children(".hiddenCardMenu").css({'display':'flex'});
+        $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
+        $(".play").mouseenter(function(e){
+             //alert(1);
+             $('.playText').stop().css({'fill':'#282B32'},300,false);
+             $('.play').mouseleave(function(e){
+                $('.playText').stop().css({'fill':'white'},300,false);
+             });
+        });
+        $('.hiddenCardMenu').mouseleave(function(e){
+            if($(e.target).hasClass('hiddenCardMenu')){
+                $(e.target).stop().animate({opacity:'-=1'},300,false);
+            }
+        });
+    });
+    ////
+    // mobile version
+    $elem = 0;
+    $('.gameCard').click(function(e){
+        $($elem).animate({opacity:'-=1'},300,false);
+        $($elem).css({'display':'none'});
+        e.stopPropagation();
+        $(this).children(".hiddenCardMenu").css({'display':'flex'});
+        $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
+        $elem = $(this).children(".hiddenCardMenu");
+    });
+    $('body').click(function(){
+        $('.hiddenCardMenu').animate({opacity:'-=1'},300,false,function(){
+            $('.hiddenCardMenu').css({'display':'none'});
+        });
     });
 });
