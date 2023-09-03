@@ -44,7 +44,12 @@ $logonActive = '<svg width="131" height="93" viewBox="0 0 131 93" fill="none" xm
 $(document).ready(function(){
     $("#menuMobal").hide();
     $flagWrapMenu = false;
+    $endAnim = true;
     $("#wrapMenuButt").on('click',function(){
+        if(!$endAnim){
+            return;
+        }
+        $endAnim = false;
         $('#logo').css({
             'position':'fixed',
         });
@@ -59,14 +64,14 @@ $(document).ready(function(){
         });
         //$("#wrapMenu").animate({right: "-=30px", top: "+=15px"}, { duration: 30, queue: false });
         $("#menuMobal").stop().show().animate({opacity: "+=1"}, { duration: 30, queue: false });
-        $('#menuMobal').stop().animate({right: "+=101%"}, { duration: 300, queue: false });
+        $('#menuMobal').stop().animate({right: "+=101%"}, { duration: 300, queue: false, complete: function() {
+            $endAnim = true;
+        }});
         $flagWrapMenu = true;
         if($(window).width() > 700 && $(window).width() < 1100){
             $("#wrapMenu").stop().animate({right: "-=20px", top: "+=30px"}, { duration: 30, queue: false });
             $('#logAndreg').stop().animate({opacity: "-=1"}, { duration: 10, queue: false });
-            $('#logo').stop().animate({left: "-=76%"}, { duration: 300, queue: false }, function(){
-                alert(1);
-            });
+            $('#logo').stop().animate({left: "-=76%"}, { duration: 300, queue: false});
         }else {
             $("#wrapMenu").stop().animate({right: "-=30px", top: "+=15px"}, { duration: 30, queue: false });
         }
@@ -75,6 +80,10 @@ $(document).ready(function(){
         $("#wrapMenuBlur").stop().animate({opacity: "-=1"}, { duration: 50, queue: false}).hide();
     });
     $("#clouseMenu").on('click',function(){
+        if(!$endAnim){
+            return;
+        }
+        $endAnim = false;
         $('#logo').css({
             'position':'absolute',
         });
@@ -82,13 +91,14 @@ $(document).ready(function(){
             'overflow-y':'auto',
         });
         $("#menuMobal").stop().animate({opacity: "-=1"}, { duration: 100, queue: false });
-        $("#clouseMenu").stop().animate({opacity: "-=1"}, { duration: 400, queue: false}).hide();
+        $("#clouseMenu").stop().animate({opacity: "-=1"}, { duration: 400, queue: false, complete: function() {
+            $endAnim = true;
+        }}).hide();
         $("#wrapMenuButt").stop().animate({opacity: "+=1"}, { duration: 50, queue: false}).show();
         $("#wrapMenuBlur").stop().animate({opacity: "+=1"}, { duration: 50, queue: false}).show();
 
 
         $('#menuMobal').stop().animate({right: "-=101%"}, { duration: 300, queue: false }).hide();
-        $flagWrapMenu = false;
         if($(window).width() > 700 && $(window).width() < 1100){
             $("#wrapMenu").stop().animate({right: "+=20px", top: "-=30px"}, { duration: 30, queue: false });
             $('#logAndreg').stop().animate({opacity: "+=1"}, { duration: 400, queue: false });
