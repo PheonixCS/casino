@@ -1,0 +1,87 @@
+.title {
+   /* Правила и условия */
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 400;
+    font-size: calc((100vw / 1200) * 80);
+    line-height: 150px;
+    /* identical to box height */
+
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+
+    margin-top: 50px;
+}
+.afterTitle-line {
+    margin-top: 50px;
+}
+
+.section-title {
+    /* Пользовательское соглашение */
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.section {
+    width: 100% !important;
+}
+.section-text {
+    position: relative;
+    width: 100%;
+}
+@media (min-width: 800px) {
+    .section-title {
+        font-size: 30px !important;
+    }
+}
+@media (min-width: 600px) and (max-width: 800px) {
+    .section-title {
+        font-size: 25px !important;
+    }
+}
+@media (min-width: 440px) and (max-width: 600px) {
+    .section-title {
+        font-size: 20px !important;
+    }
+}
+@media (max-width: 440px) {
+    .section-title {
+        font-size: 17px !important;
+    }
+}
+
+
+
+.rullDiscription {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.rullDiscription {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    font-size: 17px !important;
+    padding-left: 46px;
+}
+.section-text-blure {
+    display: none;
+    position: absolute;
+    top: 7px;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poiret One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    color: #D0C9C0;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    filter: blur(6.5px);
+}

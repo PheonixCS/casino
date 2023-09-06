@@ -231,9 +231,11 @@
 					</div>
 				</div>
 				<div class ="row" id="bodyMainContent-GamesCollections">
+					{% for game in games %}
 					<div class="col-3 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
+						{{ game.IcoPath}}
+						<div class="gameLogo"><img src="{% static game.icoPath %}"></div>
+						<div class="gameName">{{ game.GameName }}</div>
 						<div class="hiddenCardMenu">
 							<div class="demo">
 								Демо
@@ -243,42 +245,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-3 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-3 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-3 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 			<div class="bodyMainContent-gamesMobile" style="display: none;">
@@ -329,9 +296,10 @@
 
 				</div>
 				<div class="row" id="bodyMainContent-GamesCollectionsMobile">
+					{% for game in games %}
 					<div class="col-5 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
+						<div class="gameLogo"><img src="{% static game.icoPath %}"></div>
+						<div class="gameName">{{ game.GameName }}</div>
 						<div class="hiddenCardMenu">
 							<div class="demo">
 								Демо
@@ -341,42 +309,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-5 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-5 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-5 gameCard">
-						<div class="gameLogo"><img src="{% static 'main/img/gamesIco/goldOfKing.png' %}"></div>
-						<div class="gameName">Gold Of Kings</div>
-						<div class="hiddenCardMenu">
-							<div class="demo">
-								Демо
-							</div>
-							<div class="play">
-								<div class="playText">Играть</div>
-							</div>
-						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 			<div class="bodyMainContent-col">

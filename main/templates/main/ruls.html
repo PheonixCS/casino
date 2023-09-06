@@ -1,0 +1,67 @@
+{% extends 'main/mainLayout.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type='text/css' href="{% static 'main/css/about.css' %}">
+<link rel="stylesheet" type='text/css' href="{% static 'main/css/ruls.css' %}">
+<script src="{% static 'main/js/rull.js' %}"></script>
+{% endblock %}
+
+
+{% block title %}
+	Правила и условия
+{% endblock %}
+
+{% block content %}
+	
+	<div class="unselectable bgImgAbout">
+		<img src="{% static 'main/img/bgLeft.png' %}" alt="">
+		<img src="{% static 'main/img/bgRight.png' %}" alt="">
+	</div>
+	<div class = "bodyContent">
+		
+		<div class="unselectable title">Правила и условия </div>
+        <svg class="afterTitle-line" width="100%" height="2" viewBox="0 0 1726 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line y1="1" x2="1726" y2="1" stroke="white" stroke-width="2"/>
+        </svg>
+        <script>
+			function showNextBlock() {
+			  var secondBlock = document.getElementById("rullDiscription1");
+			  secondBlock.classList.toggle("show");
+			}
+		</script>
+		<div class="unselectable section">  
+			<div class="section-title">Пользовательское соглашение
+				<div class="section-blure">Пользовательское соглашение</div>
+			</div>
+			<div class="section-text section-text-parName">
+				1. Введение.
+				<div class="section-text-blure">1. Введение.</div>
+			</div>		
+			<div class="section-text rullDiscription">
+				У нас есть право вносить любые изменения, редактировать, обновлять и изменять Соглашение по ряду причин: коммерческим, юридическим, а также по причинам, связанным с обслуживанием клиентов. Актуальные пункты Соглашения и даты их вступления в силу присутствуют на Сайте. Мы информируем игроков обо всех изменениях, поправках и дополнениях путем размещения текста измененного Соглашения на Сайте. Игрок несет личную ответственность за ознакомление с действующим Соглашением. У Компании есть право вносить изменения в работу Сайта когда угодно и без предварительного информирования.
+			</div>	
+		</div>
+        <div class="unselectable section">  
+			<div class="section-title ">Общие положения и условия
+				<div class="section-blure">Общие положения и условия</div>
+			</div>
+			<div class="section-text section-text-parName">
+				2. Стороны.
+				<div class="section-text-blure">2. Стороны.</div>
+			</div>
+			<div class="section-text rullDiscription">
+				У нас есть право вносить любые изменения, редактировать, обновлять и изменять Соглашение по ряду причин: коммерческим, юридическим, а также по причинам, связанным с обслуживанием клиентов. Актуальные пункты Соглашения и даты их вступления в силу присутствуют на Сайте. Мы информируем игроков обо всех изменениях, поправках и дополнениях путем размещения текста измененного Соглашения на Сайте. Игрок несет личную ответственность за ознакомление с действующим Соглашением. У Компании есть право вносить изменения в работу Сайта когда угодно и без предварительного информирования.
+			</div>	
+            <div class="section-text section-text-parName">
+				3. Изменение условий.
+				<div class="section-text-blure">3. Изменение условий.</div>
+			</div>
+			<div class="section-text rullDiscription">
+				У нас есть право вносить любые изменения, редактировать, обновлять и изменять Соглашение по ряду причин: коммерческим, юридическим, а также по причинам, связанным с обслуживанием клиентов. Актуальные пункты Соглашения и даты их вступления в силу присутствуют на Сайте. Мы информируем игроков обо всех изменениях, поправках и дополнениях путем размещения текста измененного Соглашения на Сайте. Игрок несет личную ответственность за ознакомление с действующим Соглашением. У Компании есть право вносить изменения в работу Сайта когда угодно и без предварительного информирования.
+			</div>					
+		</div>
+	</div>
+
+{% endblock %}
+
