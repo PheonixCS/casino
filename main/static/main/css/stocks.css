@@ -10,7 +10,9 @@
 }
 #bodyMainContent-GamesCollections {
     display: flex;
-    margin-top: 15px;
+    
+    margin-top: 28px;
+
     justify-content: space-around;
 }
 .stock-card {

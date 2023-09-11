@@ -108,4 +108,40 @@ $(document).ready(function(){
             $("#wrapMenu").stop().animate({right: "+=30px", top: "-=15px"}, { duration: 30, queue: false });
         }
     });
+
+
+    $('#logon').click(function() {
+        showLoginForm();
+    });
+    $('#reg').click(function() {
+        showRegistrationForm();
+    });
+    $('.close').click(function() {
+        closeForm();
+    });
+
+
+    $('.openRegistration').click(function() {
+        $('#loginFormMobile').removeClass('showForm2').addClass('hideForm2').fadeOut();
+        $('#registrationFormMobile').removeClass('hideForm2').addClass('showForm2').fadeIn();
+      });
+      $('.openLogin').click(function() {
+        $('#registrationFormMobile').removeClass('showForm2').addClass('hideForm2').fadeOut();
+        $('#loginFormMobile').removeClass('hideForm2').addClass('showForm2').fadeIn();
+      });
+      $('.closeMobile').click(function() {
+        $('.form2').removeClass('showForm2').addClass('hideForm2').fadeOut();
+      });
 });
+function showLoginForm() {
+    $('#overlay').addClass('showOverlay');
+    $('#loginForm').addClass('show');
+  }
+  function showRegistrationForm() {
+    $('#overlay').addClass('showOverlay');
+    $('#registrationForm').addClass('show');
+  }
+  function closeForm() {
+    $('#overlay').removeClass('showOverlay');
+    $('.form').removeClass('show');
+  }

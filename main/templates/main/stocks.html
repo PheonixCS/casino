@@ -241,13 +241,11 @@
 						<img src="{{ stock.path_to_img.url }}" alt="{{ stock.name }}">
 						<h3>{{ stock.name }}</h3>
 						<p>{{ stock.description }}</p>
-						<p>{{ stock.time }}</p>
 						<a href="#" class="btn-details">Подробнее</a>
 						<div id="stock-description-{{ stock.id }}" class="stock-description">
 							<a href="#" class="btn-close"></a>
 							<h3 class="stock-description-title">{{ stock.name }}</h3>
 							<p class="stock-description-text">{{ stock.description }}</p>
-							<p>{{ stock.time }}</p>
 						</div>
 					</div>
 					{% endfor %}

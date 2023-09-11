@@ -741,3 +741,444 @@ header {
         margin-bottom: 10px;
     }
 } 
+
+
+
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 999;
+    display: none;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeInOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+@keyframes fadeOutOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+.showOverlay {
+    display: block !important;
+    animation-name: fadeInOverlay;
+}
+.hideOverlay {
+    animation-name: fadeOutOverlay;
+}
+.form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #AEAEAE;
+    padding: 20px;
+    z-index: 1000;
+    display: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+}
+.loginFormDisplay {
+    display: flex;
+    flex-direction: column;
+    z-index: 99999;
+}
+.form h2{
+    /* ВХОД */
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 30px;
+    /* identical to box height */
+    color: #37352F;
+    text-align: center;
+}
+.formDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form button {
+    width: 100%;
+    /* кнопка- войти */
+    background: #282B32;
+    border-radius: 4px;
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 45px;
+    color: #FFFFFF;
+}
+label {
+    margin-bottom: 10px;
+}
+input[type="tel"] {
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    width: 250px;
+}
+.close {
+    position: absolute;
+    top: -6px;
+    right: 6px;
+    font-size: 27px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#userProfile {
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 4px;
+    justify-content: flex-start;
+    height: 60px;
+    align-items: center;
+}
+
+#userProfile img {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+}
+.statusUP{
+    text-align: center;
+}
+#logout-button {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.cross-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgb(126, 126, 126); /* Измените цвет крестика здесь */
+    border-radius: 50%;
+}
+.cross-icon::before,
+.cross-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 3px;
+    background-color: rgb(255, 255, 255); /* Измените цвет крестика здесь */
+}
+.cross-icon::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.cross-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+.userProfile-mainInfo {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+    padding: 3px 16px 3px 16px;
+    color: white;
+    background-color: #3a3a3a;
+    border-radius: 6px;
+    text-align: center;
+    border: 0.7px solid #FFEFCF;
+}
+@media (min-width: 1100px){
+    .desktopFixML {
+        display: none !important;
+    }
+}
+@media (max-width: 1100px){
+    .mobileFixML {
+        display: none !important;
+    }
+}
+
+#userProfileMobile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+#userProfileMobile img {
+    width: 160px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.userProfileMobile-UserName {
+    /* User Name */
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 37px;
+    text-align: center;
+
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 10px;
+
+}
+.userProfileMobile-statusUP {
+    /* статус */
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    /* identical to box height */
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+}
+
+
+.userProfileMobile-balanse {
+    display: flex;
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 35px;
+    /* identical to box height */
+    text-align: center;
+
+    /* текст казино */
+    background: linear-gradient(92.75deg, #EEBF68 -5.42%, #FFD68C 24.25%, #FFD68C 61.47%, rgba(238, 191, 104, 0.99) 104.75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    margin-top: 10px;
+}
+.userProfileMobile-balanse p {
+    margin-left: 3px;
+    background: linear-gradient(92.75deg, #ffffff -5.42%, #bdbdbd 24.25%, #fff5e3 61.47%, rgba(198, 198, 198, 0.99) 104.75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.userProfileMobile-UserRUB {
+    display: flex;
+    margin-right: 5px;
+}
+.userProfileMobile-UserBonus{
+    display: flex;
+    margin-left: 5px;
+}
+
+.logout-buttonMobile {
+    margin-bottom: 10px;
+}
+.divider {
+    width: 80%;
+    height: 1px;
+    background-color: white;
+    margin: 10px 0;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+
+.form2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.form2 span {
+    color: #292a32;
+}
+.form2 h2 {
+    color:#ccc;
+    text-align: center;
+}
+.inputName {
+    color: #ccc;
+}
+.formSubmit{
+    border-radius: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+.form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    display: none;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  .show {
+    display: block;
+    animation-name: fadeIn;
+  }
+  .hide {
+    animation-name: fadeOut;
+  }
+
+
+
+.FormMobileDisplay1 {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.FormMobileDisplay1 h2{
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 30px;
+    color: #37352F;
+    text-align: center;
+}
+.FormMobileDisplay1 button{
+    width: 100%;
+    background: #282B32;
+    border-radius: 4px;
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 45px;
+    color: #FFFFFF;
+    border: 0.7px solid #FFEFCF;
+
+
+    
+
+
+}
+.FormMobileDisplay1 p{
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+.closeMobile {
+    position: absolute;
+    top: -8px;
+    right: 6px;
+    font-size: 27px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.FormMobileDisplay2 {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.form2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #AEAEAE;
+    padding: 20px;
+    display: none;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    width: fit-content;
+    border: 0.7px solid #FFEFCF;
+    border-radius: 10px;
+  }
+  @keyframes slideInFromRight {
+    from {
+      right: -100%;
+    }
+    to {
+      right: 0;
+    }
+  }
+  @keyframes slideOutToRight {
+    from {
+      right: 0;
+    }
+    to {
+      right: -100%;
+    }
+  }
+  .showForm2 {
+    display: block;
+    animation-name: slideInFromRight;
+  }
+  .hideForm2 {
+    animation-name: slideOutToRight;
+  }

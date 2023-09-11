@@ -10,7 +10,7 @@
 	<script src="{% static 'main/js/jquery-3.7.0.min.js' %}"></script>
 	<script src="{% static 'main/js/snap.svg-min.js' %}"></script>
 	<script src="{% static 'main/js/main.js' %}"></script>
-	{% block css %} {% endblock %}
+	{% block css %}{% endblock %}
 </head>
 <body>
 	<header>
@@ -33,7 +33,7 @@
 						</defs>
 			  		</svg>
 				</li>
-			  	<li><a href="">Акции</a>
+			  	<li><a href="/stocks">Акции</a>
 					<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect y="8.12573" width="11.4914" height="11.4914" transform="rotate(-45 0 8.12573)" fill="url(#paint0_linear_151_228)"/>
 						<defs>
@@ -50,7 +50,7 @@
 						</defs>
 					</svg>
 				</li>
-				<li><a href="about">О нас</a>
+				<li><a href="/about">О нас</a>
 					<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect y="8.12573" width="11.4914" height="11.4914" transform="rotate(-45 0 8.12573)" fill="url(#paint0_linear_151_228)"/>
 						<defs>
@@ -70,26 +70,63 @@
 			  	<li style="display: none;" id="bankConteiner"><p id="bankTitle">на счете</p><p id="bank">20000 &#8381</p></li>
 			</ul>
 			<div id="menuMobal">
+				{% if user.is_authenticated %}
+				<div id="userProfileMobile">
+					<img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
+					<div class="userProfileMobile-mainInfo">
+						<div class="userProfileMobile-UserName">{{ user.username }}</div>
+						<div class="userProfileMobile-statusUP">статус: {{ user.status }}</div>
+					</div>
+					<div class="userProfileMobile-balanse">
+						<div class="userProfileMobile-UserRUB">20000 <p>RUB</p></div>
+						<div class="userProfileMobile-UserBonus">20000 <p>BONUS</p></div>
+					</div>		
+					<!--<a class="button" href="#">Личный кабинет</a>-->
+					<a class="button logout-buttonMobile" id="logout-button" href="{% url 'logout' %}">
+						<span class="cross-icon"></span>
+					</a>
+				</div>
+				{% else %}
 				<div>
 					<ul id = "menuMobalUl0">
-						<li>Вход</li>
+						<li class="openLogin">Вход</li>
 						<li>
 							<svg width="1" height="26" viewBox="0 0 1 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<line x1="0.5" y1="26" x2="0.5" stroke="#9B9B9B"/>
 							</svg>
 						</li>
 						
-						<li>Регистрация</li>
+						<li class="openRegistration">Регистрация</li>
 					</ul>
+					<div id="registrationFormMobile" class="form2 hidden">
+						<div class="FormMobileDisplay1">
+							<span class="closeMobile">&times;</span>
+							<form class="FormMobileDisplay2" id="registrationFormMobile" method="post" action="{% url 'register' %}">
+								{% csrf_token %}
+								<input type="hidden" name="avatar" value="avatars/1s.png">
+								<input type="tel" id="regPhone" name="regPhone" placeholder="Введите номер телефона">
+								<button class="formSubmit" type="submit"><p>Зарегистрироваться</p></button>
+							</form>
+						</div>
+					</div>
+					<div id="loginFormMobile" class="form2 hidden">
+						<div class="FormMobileDisplay1">
+							<span class="closeMobile">&times;</span>
+							<form class="FormMobileDisplay2" id="loginFormMobile" method="post" action="{% url 'login' %}">
+								{% csrf_token %}
+								<input type="tel" id="loginPhone" name="loginPhone" placeholder="Введите номер телефона">
+								<button class="formSubmit" type="submit"><p>Войти</p></button>
+							</form>
+						</div>
+					</div>
 				</div>
-				<svg width="290" height="1" viewBox="0 0 290 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<line x1="3.0598e-08" y1="0.65" x2="290" y2="0.650025" stroke="white" stroke-width="0.7"/>
-				</svg>
+				{% endif %}
+				<div class="divider"></div>
 				<ul id = "menuMobalUl">
-					<li tabindex="-1"><a tabindex="-1" href="#">главная</a></li>
-					<li tabindex="-1"><a tabindex="-1" href="#">акции</a></li>
-					<li tabindex="-1"><a tabindex="-1" href="#">о нас</a></li>
-					<li tabindex="-1"><a tabindex="-1" href="#">контакты</a></li>
+					<li tabindex="-1"><a tabindex="-1" href="/">главная</a></li>
+					<li tabindex="-1"><a tabindex="-1" href="/stocks">акции</a></li>
+					<li tabindex="-1"><a tabindex="-1" href="/about">о нас</a></li>
+					<li tabindex="-1"><a tabindex="-1" href="/ruls">правила и условия</a></li>
 					<li tabindex="-1"><a tabindex="-1" href="#">партнерская программа</a></li>
 				</ul>
 				<svg width="366" height="351" viewBox="0 0 366 351" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -108,15 +145,55 @@
 	<line y1="0.5" x2="1726" y2="0.5" stroke="white"/>
 	</svg>
 	<div id = "logo"><img src="{% static 'main/img/logo.png' %}"></div>
-	<div id = "logAndreg">
-		<div id = "logon">
+	{% if user.is_authenticated %}
+	<div id="userProfile" class="mobileFixML">
+		<img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
+		<div class="userProfile-mainInfo">
+			<div>{{ user.username }}</div>
+			<div class="statusUP">статус: {{ user.status }}</div>
+		</div>	
+		<!--<a class="button" href="#">Личный кабинет</a>-->
+		<a class="button" id="logout-button" href="{% url 'logout' %}">
+			<span class="cross-icon"></span>
+		</a>
+	</div>
+	{% else %}
+	<div id="logAndreg">
+		<div id="logon">
 			Вход
-			<div id = "blurL"></div>
+			<div id="blurL"></div>
 		</div>
-		<div id = "reg">
+		<div id="reg">
 			Регистрация
-			<div id = "blurR"></div>
+			<div id="blurR"></div>
 		</div>
+	</div>
+	{% endif %}
+	<div id="overlay" class="mobileFixML"></div>
+	<div id="loginForm" class="form hidden">
+		<div class="loginFormDisplay">
+			<span class="close">&times;</span>
+			<h2>Вход</h2>
+			<form class="formDisplay" id="loginForm" method="post" action="{% url 'login' %}">
+				{% csrf_token %}
+				<input type="tel" id="loginPhone" name="loginPhone" placeholder="Введите номер телефона">
+				<button type="submit">Войти</button>
+			</form>
+		</div>
+	</div>
+	<div id="registrationForm" class="form">
+		<div class="loginFormDisplay">
+			<span class="close">&times;</span>
+			<h2>Регистрация</h2>
+			<form class="formDisplay" id="registrationForm" method="post" action="{% url 'register' %}">
+				{% csrf_token %}
+				<input type="hidden" name="avatar" value="avatars/1s.png">
+				<input type="tel" id="regPhone" name="regPhone" placeholder="Введите номер телефона">
+				<button type="submit">Зарегистрироваться</button>
+			</form>
+		</div>
+	</div>
+		<!-- Форма ввода номера телефона для регистрации -->
 	</div>
 	<div id="wrapMenu">
 		<div id="wrapMenuBlur">
@@ -213,11 +290,12 @@
 			<div class="row FooterL2">
 				<div class="col-5">
 					<ul id = "menuFooter">
-						<li tabindex="-1"><a tabindex="-1" href="#">главная</a></li>
-						<li tabindex="-1"><a tabindex="-1" href="#">акции</a></li>
-						<li tabindex="-1"><a tabindex="-1" href="#">о нас</a></li>
+						<li tabindex="-1"><a tabindex="-1" href="/">главная</a></li>
+						<li tabindex="-1"><a tabindex="-1" href="/stocks">акции</a></li>
+						<li tabindex="-1"><a tabindex="-1" href="/about">о нас</a></li>
 						<li tabindex="-1"><a tabindex="-1" href="#">контакты</a></li>
 						<li tabindex="-1"><a tabindex="-1" href="#">партнерская программа</a></li>
+						<li tabindex="-1"><a tabindex="-1" href="/ruls">правила и условия</a></li>
 					</ul>
 				</div>
 				<div class="row col-7">

@@ -20,7 +20,7 @@
 				<div class = "mainText">Фриспины, денежные бонусы</div>
 				<div class = "subText">и многое другое</div>
 				<div class = "banerSubmit">
-					
+					<a class="banerHref" href="/stocks"></a>
 					<svg class="mobileFix" width="437" height="40" viewBox="0 0 437 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path id="desktopBanerSubmit1Line" d="M316.226 19L322 24.7735L327.774 19L322 13.2265L316.226 19ZM322 20H437V18H322V20Z" fill="url(#paint0_linear_69_32)"/>
 						<path id="desktopBanerSubmit2Line" d="M107 19L2.20537e-06 19" stroke="url(#paint1_linear_69_32)" stroke-width="2"/>
@@ -111,6 +111,7 @@
 						<line id="banerSubmitDownLine2" x1="85" y1="8.5" x2="77" y2="8.49999" stroke="#FFEFD0"/>
 						<rect x="74.929" y="8" width="10" height="10" transform="rotate(-45 74.929 8)" fill="#FFEFD0"/>
 					</svg>
+					
 				</div>
 			</div>
 			<div class = "img-mainBaner mobileFix">
@@ -233,8 +234,7 @@
 				<div class ="row" id="bodyMainContent-GamesCollections">
 					{% for game in games %}
 					<div class="col-3 gameCard">
-						{{ game.IcoPath}}
-						<div class="gameLogo"><img src="{% static game.icoPath %}"></div>
+						<div class="gameLogo"><img src="{{ game.icoPath.url }}"></div>
 						<div class="gameName">{{ game.GameName }}</div>
 						<div class="hiddenCardMenu">
 							<div class="demo">
@@ -298,7 +298,7 @@
 				<div class="row" id="bodyMainContent-GamesCollectionsMobile">
 					{% for game in games %}
 					<div class="col-5 gameCard">
-						<div class="gameLogo"><img src="{% static game.icoPath %}"></div>
+						<div class="gameLogo"><img src="{{ game.icoPath.url }}"></div>
 						<div class="gameName">{{ game.GameName }}</div>
 						<div class="hiddenCardMenu">
 							<div class="demo">
