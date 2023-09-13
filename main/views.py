@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Game
-from .models import Stock, Avatar
+from .models import Stock
 from .models import User
+from .models import Referral
 from django.contrib.auth import authenticate, login, logout
 import random
 
@@ -23,6 +24,17 @@ def part(request):
 def register_user(request):
     if request.method == 'POST':
         phone_number = request.POST.get('regPhone')
+        referral_code = request.POST.get('referralCode')
+        if referral_code:
+            try:
+                referrer = User.objects.get(referral_code=referral_code)
+            except User.DoesNotExist:
+                # Обработка случая, если реферальный код недействителен
+                pass
+            else:
+                # Привязка реферера к новому пользователю
+                referral = Referral(referrer=referrer, referred_user=user)
+                referral.save()
         # Создание пользователя без пароля
         user = User.objects.create_user(username=phone_number, password='')
         user = authenticate(username=phone_number, password='')
