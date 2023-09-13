@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 from imagekit.models import ImageSpecField
+import uuid
 # Create your models here.
 
 # здесь добавить акции
@@ -40,3 +41,8 @@ class User(AbstractUser):
         (5, 'Статус 5'),
     )
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    referral_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
+
+class Referral(models.Model):
+    referrer = models.ForeignKey(User, on_delete=models.CASCADE)
+    referred_user = models.ForeignKey(User, related_name='referrals', on_delete=models.CASCADE)
