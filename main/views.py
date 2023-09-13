@@ -17,6 +17,8 @@ def about(request):
 	return render(request,'main/about.html')
 def ruls(request):
 	return render(request,'main/ruls.html')
+def part(request):
+	return render(request,'main/partnerProgramMain.html')
 
 def register_user(request):
     if request.method == 'POST':

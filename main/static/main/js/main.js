@@ -124,14 +124,18 @@ $(document).ready(function(){
     $('.openRegistration').click(function() {
         $('#loginFormMobile').removeClass('showForm2').addClass('hideForm2').fadeOut();
         $('#registrationFormMobile').removeClass('hideForm2').addClass('showForm2').fadeIn();
-      });
-      $('.openLogin').click(function() {
+    });
+    $('.openLogin').click(function() {
         $('#registrationFormMobile').removeClass('showForm2').addClass('hideForm2').fadeOut();
         $('#loginFormMobile').removeClass('hideForm2').addClass('showForm2').fadeIn();
-      });
-      $('.closeMobile').click(function() {
+    });
+        $('.closeMobile').click(function() {
         $('.form2').removeClass('showForm2').addClass('hideForm2').fadeOut();
-      });
+    });
+
+    $('.afteBanerInfo-C3').click(function() {
+        showRegistrationForm();
+    });
 });
 function showLoginForm() {
     $('#overlay').addClass('showOverlay');

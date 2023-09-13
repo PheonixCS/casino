@@ -138,6 +138,8 @@
 					</div>
 				</div>
 			</div>
+			{% if user.is_authenticated %}
+			{% else %}
 			<div class="afteBanerInfo-C3">
 				<svg id="afteBanerInfo-C3-regSubmit" width="300" height="40" viewBox="0 0 463 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path id="afteBanerInfo-C3-lineRight" d="M342.226 19L348 24.7735L353.774 19L348 13.2265L342.226 19ZM348 20H463V18H348V20Z" fill="url(#paint0_linear_234_941)"/>
@@ -185,6 +187,7 @@
 					</defs>
 				</svg>
 			</div>
+			{% endif %}
 		</div>
 		<div class="bodyMainContent">
 			<div class="bodyMainContent-games mobileFix">
