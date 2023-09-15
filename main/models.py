@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 from imagekit.models import ImageSpecField
-import uuid
+import random
+import string
 # Create your models here.
 
 # здесь добавить акции
@@ -42,7 +43,17 @@ class User(AbstractUser):
     )
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     referral_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
-
+    points = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    def save(self, *args, **kwargs):
+        if not self.referral_code:
+            self.referral_code = self.generate_unique_referral_code()
+        super().save(*args, **kwargs)
+    def generate_unique_referral_code(self):
+        code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        while User.objects.filter(referral_code=code).exists():
+            code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        return code
 class Referral(models.Model):
     referrer = models.ForeignKey(User, on_delete=models.CASCADE)
     referred_user = models.ForeignKey(User, related_name='referrals', on_delete=models.CASCADE)

@@ -4,6 +4,7 @@
 
 {% block css %}
     <link rel="stylesheet" type='text/css' href="{% static 'main/css/partnerProgramMain.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% static 'main/css/partnerProgramAutoris.css' %}">
     <script src="{% static 'main/js/partnerProgramMain.js' %}"></script>
 {% endblock %}
 
@@ -16,7 +17,26 @@
 {% block content %}
 <div class = "bodyContent">
     {% if user.is_authenticated %}
-    
+    <div class="bodyContent-layerOne">
+        <div class="bodyContent-layerOne-profil">{{ user }}</div>
+        <div class="bodyContent-layerOne-profil">{{ user.points }}</div>
+        <div class="bodyContent-layerOne-baner"></div>
+    </div>
+    <div class="bodyContent-layerTwo">
+        {% if referrals %}
+        {% for referral in referrals %}
+            <div>{{ referral.referred_user.username }}</div>
+        {% endfor %}
+        {% else %}
+            <div>У Вас пока нет рефералов</div>
+        {% endif %}
+        </div>
+    <div class="bodyContent-layerThree">
+        <div>Реферальный код</div>
+        <div>{{ referral_code }}</div>
+        <div>copy</div>
+    </div>
+
     {% else %}
     <div class="title">
         Партнерская программа

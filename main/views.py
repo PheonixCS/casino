@@ -19,25 +19,32 @@ def about(request):
 def ruls(request):
 	return render(request,'main/ruls.html')
 def part(request):
-	return render(request,'main/partnerProgramMain.html')
+    user = request.user
+    referrals = Referral.objects.filter(referrer=user)
+    referral_code = user.referral_code
+    context = {
+        'referrals': referrals,
+        'referral_code': referral_code,
+        'user': user
+    }
+    return render(request, 'main/partnerProgramMain.html', context)
 
 def register_user(request):
     if request.method == 'POST':
         phone_number = request.POST.get('regPhone')
         referral_code = request.POST.get('referralCode')
+        user = User.objects.create_user(username=phone_number, password='')
+        user = authenticate(username=phone_number, password='')
         if referral_code:
             try:
                 referrer = User.objects.get(referral_code=referral_code)
+                referral = Referral(referrer=referrer, referred_user=user)
+                referral.save()
             except User.DoesNotExist:
                 # Обработка случая, если реферальный код недействителен
                 pass
-            else:
-                # Привязка реферера к новому пользователю
-                referral = Referral(referrer=referrer, referred_user=user)
-                referral.save()
         # Создание пользователя без пароля
-        user = User.objects.create_user(username=phone_number, password='')
-        user = authenticate(username=phone_number, password='')
+        
         login(request, user)
         # Дополнительная логика обработки после создания пользователя
         return redirect('/')  # Перенаправление на главную страницу после успешной регистрации
