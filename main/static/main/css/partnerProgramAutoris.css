@@ -1,0 +1,131 @@
+.bodyContent-layerOne {
+    display: flex;
+    width: 80%;
+    margin-top: 90px;
+    justify-content: space-between;
+    
+}
+.layerOne-profil {
+    /* Rectangle 72 */
+    display: flex;
+    background: #090806;
+    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    border-radius: 8px;
+    padding: 25px;
+}
+.layerOne-profil img {
+    width: 160px;
+    height: auto;
+}
+.bodyContent-layerOne-baner {
+    display: flex;
+    background: #090806;
+    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    border-radius: 8px;
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 134.02%;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.bodyContent-layerTwo {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    margin-top: 90px;
+    min-height: 200px;
+
+    align-items: center;
+
+    background: #090806;
+    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    border-radius: 8px;
+}
+.layerTwo-epsentRef {
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+}
+.profilText {
+    text-align: left;
+    font-size: 20px;
+    margin-top: 3px;
+}
+.userProfileMobile-mainInfo {
+    margin-left: 20px;
+}
+
+
+
+.bodyContent-layerThree {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    margin-top: 90px;
+    min-height: 200px;
+
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.layerThree-title {
+    /* Реферальная ссылка */
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 133.02%;
+    /* or 53px */
+    letter-spacing: 0.04em;
+
+    background: linear-gradient(90deg, #CBAA70 0%, #DEC188 40.94%, #DEC188 60.21%, #CEAD74 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
+
+
+
+
+.layerThree-code {
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 133.02%;
+    /* identical to box height, or 32px */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+    color: #D4D4D4;
+}
+
+.layerThree-copy {
+    background: linear-gradient(90deg, #AC9061 0%, #FFEFD0 40.94%, #FFEFD0 60.21%, #AC9061 100%);
+    border-radius: 100px;
+    padding: 10px;
+    width: 140px;
+    text-align: center;
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
+

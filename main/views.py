@@ -19,16 +19,17 @@ def about(request):
 def ruls(request):
 	return render(request,'main/ruls.html')
 def part(request):
-    user = request.user
-    referrals = Referral.objects.filter(referrer=user)
-    referral_code = user.referral_code
-    context = {
-        'referrals': referrals,
-        'referral_code': referral_code,
-        'user': user
-    }
-    return render(request, 'main/partnerProgramMain.html', context)
-
+    if request.user.is_authenticated:
+        user = request.user
+        referrals = Referral.objects.filter(referrer=user)
+        referral_code = user.referral_code
+        context = {
+            'referrals': referrals,
+            'referral_code': referral_code,
+            'user': user
+        }
+        return render(request, 'main/partnerProgramMain.html', context)
+    return render(request, 'main/partnerProgramMain.html')
 def register_user(request):
     if request.method == 'POST':
         phone_number = request.POST.get('regPhone')
