@@ -1,0 +1,364 @@
+{% extends 'main/mainLayout.html' %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" type='text/css' href="{% static 'main/css/peAc.css' %}">
+    <script src="{% static 'main/js/peAc.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+	Личный кабинет
+{% endblock %}
+
+{% block content %}
+<div class = "bodyContent">
+	<div class="layerOne">
+		<div class="profil">
+			<div class="profil-info">
+				<div class="avatar"><img src="{{ user.avatar.url }}" alt="Аватарка пользователя"></div>
+				<div class="name">{{ user.username }}</div>
+				<div class="balanse"><div class="balanseText">Ваш баланс:</div><div class="profileText">{{ user.balance }}</div> <div class="balanseIco">
+					<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6.1875 10.6999C6.273 11.7731 7.12125 12.609 8.64225 12.708V13.5H9.31725V12.7024C10.8922 12.5921 11.8125 11.7506 11.8125 10.5289C11.8125 9.4185 11.1083 8.84587 9.84938 8.54887L9.31725 8.42287V6.26625C9.99225 6.34275 10.422 6.71175 10.5255 7.2225H11.709C11.6235 6.18863 10.737 5.37975 9.31725 5.292V4.5H8.64225V5.30887C7.29788 5.4405 6.381 6.24938 6.381 7.3935C6.381 8.406 7.06275 9.0495 8.19562 9.31388L8.64225 9.42412V11.7124C7.95038 11.6078 7.4925 11.2286 7.389 10.6999H6.1875ZM8.63663 8.26312C7.97288 8.109 7.61288 7.79512 7.61288 7.32262C7.61288 6.79387 8.001 6.39788 8.64225 6.282V8.262L8.63663 8.26312ZM9.41513 9.60525C10.2218 9.792 10.5941 10.0946 10.5941 10.629C10.5941 11.2387 10.1306 11.6573 9.31725 11.7338V9.58275L9.41513 9.60525Z" fill="url(#paint0_linear_321_861)"/>
+						<path d="M9 16.875C6.91142 16.875 4.90838 16.0453 3.43153 14.5685C1.95468 13.0916 1.125 11.0886 1.125 9C1.125 6.91142 1.95468 4.90838 3.43153 3.43153C4.90838 1.95468 6.91142 1.125 9 1.125C11.0886 1.125 13.0916 1.95468 14.5685 3.43153C16.0453 4.90838 16.875 6.91142 16.875 9C16.875 11.0886 16.0453 13.0916 14.5685 14.5685C13.0916 16.0453 11.0886 16.875 9 16.875ZM9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 6.61305 17.0518 4.32387 15.364 2.63604C13.6761 0.948212 11.3869 0 9 0C6.61305 0 4.32387 0.948212 2.63604 2.63604C0.948212 4.32387 0 6.61305 0 9C0 11.3869 0.948212 13.6761 2.63604 15.364C4.32387 17.0518 6.61305 18 9 18Z" fill="url(#paint1_linear_321_861)"/>
+						<path d="M9 15.1875C7.35897 15.1875 5.78516 14.5356 4.62478 13.3752C3.4644 12.2148 2.8125 10.641 2.8125 9C2.8125 7.35897 3.4644 5.78516 4.62478 4.62478C5.78516 3.4644 7.35897 2.8125 9 2.8125C10.641 2.8125 12.2148 3.4644 13.3752 4.62478C14.5356 5.78516 15.1875 7.35897 15.1875 9C15.1875 10.641 14.5356 12.2148 13.3752 13.3752C12.2148 14.5356 10.641 15.1875 9 15.1875ZM9 15.75C9.88642 15.75 10.7642 15.5754 11.5831 15.2362C12.4021 14.897 13.1462 14.3998 13.773 13.773C14.3998 13.1462 14.897 12.4021 15.2362 11.5831C15.5754 10.7642 15.75 9.88642 15.75 9C15.75 8.11358 15.5754 7.23583 15.2362 6.41689C14.897 5.59794 14.3998 4.85382 13.773 4.22703C13.1462 3.60023 12.4021 3.10303 11.5831 2.76381C10.7642 2.42459 9.88642 2.25 9 2.25C7.20979 2.25 5.4929 2.96116 4.22703 4.22703C2.96116 5.4929 2.25 7.20979 2.25 9C2.25 10.7902 2.96116 12.5071 4.22703 13.773C5.4929 15.0388 7.20979 15.75 9 15.75Z" fill="url(#paint2_linear_321_861)"/>
+						<defs>
+						<linearGradient id="paint0_linear_321_861" x1="9" y1="4.5" x2="9" y2="13.5" gradientUnits="userSpaceOnUse">
+						<stop offset="0.00312487" stop-color="#E8C463"/>
+						<stop offset="0.201042" stop-color="#C78E2D"/>
+						<stop offset="0.419792" stop-color="#D6AF57"/>
+						<stop offset="0.529067" stop-color="#E4C975"/>
+						<stop offset="0.601983" stop-color="#F4E497"/>
+						<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+						<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+						<stop offset="1" stop-color="#EAC462"/>
+						</linearGradient>
+						<linearGradient id="paint1_linear_321_861" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
+						<stop offset="0.00312487" stop-color="#E8C463"/>
+						<stop offset="0.201042" stop-color="#C78E2D"/>
+						<stop offset="0.419792" stop-color="#D6AF57"/>
+						<stop offset="0.529067" stop-color="#E4C975"/>
+						<stop offset="0.601983" stop-color="#F4E497"/>
+						<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+						<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+						<stop offset="1" stop-color="#EAC462"/>
+						</linearGradient>
+						<linearGradient id="paint2_linear_321_861" x1="9" y1="2.25" x2="9" y2="15.75" gradientUnits="userSpaceOnUse">
+						<stop offset="0.00312487" stop-color="#E8C463"/>
+						<stop offset="0.201042" stop-color="#C78E2D"/>
+						<stop offset="0.419792" stop-color="#D6AF57"/>
+						<stop offset="0.529067" stop-color="#E4C975"/>
+						<stop offset="0.601983" stop-color="#F4E497"/>
+						<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+						<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+						<stop offset="1" stop-color="#EAC462"/>
+						</linearGradient>
+						</defs>
+					</svg>
+				</div></div>
+				<div class="balanse"><div class="balanseText">Ваши баллы:</div> <div class="profileText">{{ user.points }}</div>
+					<div class="balanseIco">
+						<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.1875 10.6999C6.273 11.7731 7.12125 12.609 8.64225 12.708V13.5H9.31725V12.7024C10.8922 12.5921 11.8125 11.7506 11.8125 10.5289C11.8125 9.4185 11.1083 8.84587 9.84938 8.54887L9.31725 8.42287V6.26625C9.99225 6.34275 10.422 6.71175 10.5255 7.2225H11.709C11.6235 6.18863 10.737 5.37975 9.31725 5.292V4.5H8.64225V5.30887C7.29788 5.4405 6.381 6.24938 6.381 7.3935C6.381 8.406 7.06275 9.0495 8.19562 9.31388L8.64225 9.42412V11.7124C7.95038 11.6078 7.4925 11.2286 7.389 10.6999H6.1875ZM8.63663 8.26312C7.97288 8.109 7.61288 7.79512 7.61288 7.32262C7.61288 6.79387 8.001 6.39788 8.64225 6.282V8.262L8.63663 8.26312ZM9.41513 9.60525C10.2218 9.792 10.5941 10.0946 10.5941 10.629C10.5941 11.2387 10.1306 11.6573 9.31725 11.7338V9.58275L9.41513 9.60525Z" fill="url(#paint0_linear_321_861)"/>
+							<path d="M9 16.875C6.91142 16.875 4.90838 16.0453 3.43153 14.5685C1.95468 13.0916 1.125 11.0886 1.125 9C1.125 6.91142 1.95468 4.90838 3.43153 3.43153C4.90838 1.95468 6.91142 1.125 9 1.125C11.0886 1.125 13.0916 1.95468 14.5685 3.43153C16.0453 4.90838 16.875 6.91142 16.875 9C16.875 11.0886 16.0453 13.0916 14.5685 14.5685C13.0916 16.0453 11.0886 16.875 9 16.875ZM9 18C11.3869 18 13.6761 17.0518 15.364 15.364C17.0518 13.6761 18 11.3869 18 9C18 6.61305 17.0518 4.32387 15.364 2.63604C13.6761 0.948212 11.3869 0 9 0C6.61305 0 4.32387 0.948212 2.63604 2.63604C0.948212 4.32387 0 6.61305 0 9C0 11.3869 0.948212 13.6761 2.63604 15.364C4.32387 17.0518 6.61305 18 9 18Z" fill="url(#paint1_linear_321_861)"/>
+							<path d="M9 15.1875C7.35897 15.1875 5.78516 14.5356 4.62478 13.3752C3.4644 12.2148 2.8125 10.641 2.8125 9C2.8125 7.35897 3.4644 5.78516 4.62478 4.62478C5.78516 3.4644 7.35897 2.8125 9 2.8125C10.641 2.8125 12.2148 3.4644 13.3752 4.62478C14.5356 5.78516 15.1875 7.35897 15.1875 9C15.1875 10.641 14.5356 12.2148 13.3752 13.3752C12.2148 14.5356 10.641 15.1875 9 15.1875ZM9 15.75C9.88642 15.75 10.7642 15.5754 11.5831 15.2362C12.4021 14.897 13.1462 14.3998 13.773 13.773C14.3998 13.1462 14.897 12.4021 15.2362 11.5831C15.5754 10.7642 15.75 9.88642 15.75 9C15.75 8.11358 15.5754 7.23583 15.2362 6.41689C14.897 5.59794 14.3998 4.85382 13.773 4.22703C13.1462 3.60023 12.4021 3.10303 11.5831 2.76381C10.7642 2.42459 9.88642 2.25 9 2.25C7.20979 2.25 5.4929 2.96116 4.22703 4.22703C2.96116 5.4929 2.25 7.20979 2.25 9C2.25 10.7902 2.96116 12.5071 4.22703 13.773C5.4929 15.0388 7.20979 15.75 9 15.75Z" fill="url(#paint2_linear_321_861)"/>
+							<defs>
+							<linearGradient id="paint0_linear_321_861" x1="9" y1="4.5" x2="9" y2="13.5" gradientUnits="userSpaceOnUse">
+							<stop offset="0.00312487" stop-color="#E8C463"/>
+							<stop offset="0.201042" stop-color="#C78E2D"/>
+							<stop offset="0.419792" stop-color="#D6AF57"/>
+							<stop offset="0.529067" stop-color="#E4C975"/>
+							<stop offset="0.601983" stop-color="#F4E497"/>
+							<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+							<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+							<stop offset="1" stop-color="#EAC462"/>
+							</linearGradient>
+							<linearGradient id="paint1_linear_321_861" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
+							<stop offset="0.00312487" stop-color="#E8C463"/>
+							<stop offset="0.201042" stop-color="#C78E2D"/>
+							<stop offset="0.419792" stop-color="#D6AF57"/>
+							<stop offset="0.529067" stop-color="#E4C975"/>
+							<stop offset="0.601983" stop-color="#F4E497"/>
+							<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+							<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+							<stop offset="1" stop-color="#EAC462"/>
+							</linearGradient>
+							<linearGradient id="paint2_linear_321_861" x1="9" y1="2.25" x2="9" y2="15.75" gradientUnits="userSpaceOnUse">
+							<stop offset="0.00312487" stop-color="#E8C463"/>
+							<stop offset="0.201042" stop-color="#C78E2D"/>
+							<stop offset="0.419792" stop-color="#D6AF57"/>
+							<stop offset="0.529067" stop-color="#E4C975"/>
+							<stop offset="0.601983" stop-color="#F4E497"/>
+							<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+							<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+							<stop offset="1" stop-color="#EAC462"/>
+							</linearGradient>
+							</defs>
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class="profil-menu">
+				<div class="profil-menu-personalMessage profileText profil-menu-border">Личные сообщения</div>
+				<div class="profil-menu-referalProgramm profileText profil-menu-border">Партнерская программа</div>
+				<div class="profil-menu-historyMoney profileText profil-menu-border">Финансовая история</div>
+				<div class="profil-menu-exit profileText profil-menu-border"><div class="profile-menu-exitButt">
+					<svg width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M19.5714 1H1V26.375C1 27.3364 1.39133 28.2584 2.08789 28.9383C2.78445 29.6181 3.7292 30 4.71429 30H19.5714M21.4286 20.9375L27 15.5M27 15.5L21.4286 10.0625M27 15.5H8.42857" stroke="url(#paint0_linear_321_879)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<defs>
+						<linearGradient id="paint0_linear_321_879" x1="14" y1="1" x2="14" y2="30" gradientUnits="userSpaceOnUse">
+						<stop offset="0.00312487" stop-color="#E8C463"/>
+						<stop offset="0.201042" stop-color="#C78E2D"/>
+						<stop offset="0.419792" stop-color="#D6AF57"/>
+						<stop offset="0.529067" stop-color="#E4C975"/>
+						<stop offset="0.601983" stop-color="#F4E497"/>
+						<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+						<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+						<stop offset="1" stop-color="#EAC462"/>
+						</linearGradient>
+						</defs>
+					</svg>
+						
+				</div> Выйти</div>
+			</div>
+		</div>
+		<div class="bonusProgram">
+			<div class="bonusProgram-left">
+				<div class="bonusProgram-left-title">Бонус</div>
+				<div class="bonusProgram-progress">
+					<div class="bonusProgram-progress-step">
+						<div class="step-text">10%</div>
+						<div class="step-conditions">1000 
+							<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 0V5H0V6H1V7H0V8H1V10H2V8H4.5V7H2V6H5C6.65 6 8 4.65 8 3C8 1.35 6.65 0 5 0H1ZM2 1H5C6.1095 1 7 1.8905 7 3C7 4.1095 6.1095 5 5 5H2V1Z" fill="url(#paint0_linear_321_904)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_904" x1="4" y1="0" x2="4" y2="10" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								</defs>
+							</svg>
+						</div>
+					</div>
+					<div class="bonusProgram-progress-seporator">
+						<svg width="93" height="2" viewBox="0 0 93 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<line x1="0.908106" y1="0.596864" x2="92.1029" y2="0.757216" stroke="white"/>
+						</svg>
+					</div>
+					<div class="bonusProgram-progress-step">
+						<div class="step-text">15%</div>
+						<div class="step-conditions">2000 
+							<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 0V5H0V6H1V7H0V8H1V10H2V8H4.5V7H2V6H5C6.65 6 8 4.65 8 3C8 1.35 6.65 0 5 0H1ZM2 1H5C6.1095 1 7 1.8905 7 3C7 4.1095 6.1095 5 5 5H2V1Z" fill="url(#paint0_linear_321_904)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_904" x1="4" y1="0" x2="4" y2="10" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								</defs>
+							</svg>
+						</div>
+					</div>
+					<div class="bonusProgram-progress-seporator">
+						<svg width="93" height="2" viewBox="0 0 93 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<line x1="0.908106" y1="0.596864" x2="92.1029" y2="0.757216" stroke="white"/>
+						</svg>
+					</div>
+					<div class="bonusProgram-progress-step">
+						<div class="step-text">20%</div>
+						<div class="step-conditions">5000 
+							<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 0V5H0V6H1V7H0V8H1V10H2V8H4.5V7H2V6H5C6.65 6 8 4.65 8 3C8 1.35 6.65 0 5 0H1ZM2 1H5C6.1095 1 7 1.8905 7 3C7 4.1095 6.1095 5 5 5H2V1Z" fill="url(#paint0_linear_321_904)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_904" x1="4" y1="0" x2="4" y2="10" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								</defs>
+							</svg>
+						</div>
+					</div>
+					<div class="bonusProgram-progress-seporator">
+						<svg width="93" height="2" viewBox="0 0 93 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<line x1="0.908106" y1="0.596864" x2="92.1029" y2="0.757216" stroke="white"/>
+						</svg>
+					</div>
+					<div class="bonusProgram-progress-step">
+						<div class="step-text">30%</div>
+						<div class="step-conditions">10000 
+							<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 0V5H0V6H1V7H0V8H1V10H2V8H4.5V7H2V6H5C6.65 6 8 4.65 8 3C8 1.35 6.65 0 5 0H1ZM2 1H5C6.1095 1 7 1.8905 7 3C7 4.1095 6.1095 5 5 5H2V1Z" fill="url(#paint0_linear_321_904)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_904" x1="4" y1="0" x2="4" y2="10" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								</defs>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="bonusProgram-infoStatus">
+					<div class="bonusProgram-infoStatus-balanse">
+						<div class="bonusProgram-infoStatus-balanseText">Ваш баланс:</div>
+						<div class="bonusProgram-infoStatus-balanseCount">{{ user.balance }}</div>
+						<div class="balanseSVGIco">
+							<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M6.53125 11.2943C6.6215 12.4272 7.51688 13.3095 9.12238 13.414V14.25H9.83487V13.4081C11.4974 13.2917 12.4688 12.4034 12.4688 11.1138C12.4688 9.94175 11.7254 9.33731 10.3966 9.02381L9.83487 8.89081V6.61438C10.5474 6.69513 11.001 7.08463 11.1102 7.62375H12.3595C12.2692 6.53244 11.3335 5.67862 9.83487 5.586V4.75H9.12238V5.60381C7.70331 5.74275 6.7355 6.59656 6.7355 7.80425C6.7355 8.873 7.45512 9.55225 8.65094 9.83131L9.12238 9.94769V12.3631C8.39206 12.2526 7.90875 11.8524 7.7995 11.2943H6.53125ZM9.11644 8.72219C8.41581 8.5595 8.03581 8.22819 8.03581 7.72944C8.03581 7.17131 8.4455 6.75331 9.12238 6.631V8.721L9.11644 8.72219ZM9.93819 10.1389C10.7896 10.336 11.1827 10.6554 11.1827 11.2195C11.1827 11.8631 10.6934 12.3049 9.83487 12.3856V10.1151L9.93819 10.1389Z" fill="white"/>
+								<path d="M9.5 17.8125C7.29539 17.8125 5.18107 16.9367 3.62217 15.3778C2.06328 13.8189 1.1875 11.7046 1.1875 9.5C1.1875 7.29539 2.06328 5.18107 3.62217 3.62217C5.18107 2.06328 7.29539 1.1875 9.5 1.1875C11.7046 1.1875 13.8189 2.06328 15.3778 3.62217C16.9367 5.18107 17.8125 7.29539 17.8125 9.5C17.8125 11.7046 16.9367 13.8189 15.3778 15.3778C13.8189 16.9367 11.7046 17.8125 9.5 17.8125ZM9.5 19C12.0196 19 14.4359 17.9991 16.2175 16.2175C17.9991 14.4359 19 12.0196 19 9.5C19 6.98044 17.9991 4.56408 16.2175 2.78249C14.4359 1.00089 12.0196 0 9.5 0C6.98044 0 4.56408 1.00089 2.78249 2.78249C1.00089 4.56408 0 6.98044 0 9.5C0 12.0196 1.00089 14.4359 2.78249 16.2175C4.56408 17.9991 6.98044 19 9.5 19Z" fill="white"/>
+								<path d="M9.5 16.0312C7.76781 16.0312 6.10656 15.3431 4.88171 14.1183C3.65686 12.8934 2.96875 11.2322 2.96875 9.5C2.96875 7.76781 3.65686 6.10656 4.88171 4.88171C6.10656 3.65686 7.76781 2.96875 9.5 2.96875C11.2322 2.96875 12.8934 3.65686 14.1183 4.88171C15.3431 6.10656 16.0312 7.76781 16.0312 9.5C16.0312 11.2322 15.3431 12.8934 14.1183 14.1183C12.8934 15.3431 11.2322 16.0312 9.5 16.0312ZM9.5 16.625C10.4357 16.625 11.3622 16.4407 12.2266 16.0826C13.0911 15.7246 13.8765 15.1998 14.5381 14.5381C15.1998 13.8765 15.7246 13.0911 16.0826 12.2266C16.4407 11.3622 16.625 10.4357 16.625 9.5C16.625 8.56433 16.4407 7.63783 16.0826 6.77338C15.7246 5.90894 15.1998 5.12348 14.5381 4.46186C13.8765 3.80025 13.0911 3.27542 12.2266 2.91736C11.3622 2.55929 10.4357 2.375 9.5 2.375C7.61033 2.375 5.79806 3.12567 4.46186 4.46186C3.12567 5.79806 2.375 7.61033 2.375 9.5C2.375 11.3897 3.12567 13.2019 4.46186 14.5381C5.79806 15.8743 7.61033 16.625 9.5 16.625Z" fill="white"/>
+							</svg>
+						</div>
+					</div>
+					<div class="bonusProgram-infoStatus-balanse">
+						<div class="bonusProgram-infoStatus-balanseText">Ваш статус:</div>
+						<div class="bonusProgram-infoStatus-balanseCount">{{ user.status }}</div>
+					</div>
+					<div class="bonusProgram-infoStatus-balanse">
+						<div class="bonusProgram-infoStatus-balanseText">Процент кешбека:</div>
+						{% comment %} здесь нужно будет сделать %% кешбека {% endcomment %}
+						<div class="bonusProgram-infoStatus-balanseCount">{{ user.status }}</div>
+					</div>
+				</div>
+				<div class="btnMoneyIn">пополнить баланс</div>
+			</div>
+			<div class="bonusProgram-right">
+				<div class="bonusProgram-right-title">Следующий статус</div>
+				<div class="bonusProgram-rightSeporator">
+					<svg width="12" height="79" viewBox="0 0 12 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M6 78.7735L11.7735 73L6 67.2265L0.2265 73L6 78.7735ZM5 4.37114e-08L5 73L7 73L7 -4.37114e-08L5 4.37114e-08Z" fill="url(#paint0_radial_321_915)"/>
+						<defs>
+						<radialGradient id="paint0_radial_321_915" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-40.9993 -2.52406) rotate(40.7018) scale(94.9723 23539.2)">
+						<stop/>
+						<stop offset="1" stop-color="#FFDDB6"/>
+						</radialGradient>
+						</defs>
+					</svg>
+				</div>
+				<div class="bonusProgram-right-nextStatus">{{ nextST }}</div>
+				<div class="bonusProgram-right-baner row">
+					<div class="bonusProgram-right-banerTitle col-12">
+						Бонусы
+					</div>
+					<div class="bonusProgram-right-banerDoubleDep col-4 banerColl">
+						<div class="bonusProgram-right-banerSVG">
+							<svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g clip-path="url(#clip0_321_916)">
+								<path d="M19.5 39L14.625 31.6875H17.0625V26.8125H21.9375V31.6875H24.375L19.5 39ZM36.5625 2.4375V21.9375H2.4375V2.4375H36.5625ZM39 0H0V24.375H39V0Z" fill="url(#paint0_linear_321_916)"/>
+								<path d="M19.5 4.875C21.4394 4.875 23.2994 5.64542 24.6707 7.01678C26.0421 8.38814 26.8125 10.2481 26.8125 12.1875C26.8125 14.1269 26.0421 15.9869 24.6707 17.3582C23.2994 18.7296 21.4394 19.5 19.5 19.5H31.6875V17.0625H34.125V7.3125H31.6875V4.875H19.5ZM12.1875 12.1875C12.1875 10.2481 12.9579 8.38814 14.3293 7.01678C15.7006 5.64542 17.5606 4.875 19.5 4.875H7.3125V7.3125H4.875V17.0625H7.3125V19.5H19.5C17.5606 19.5 15.7006 18.7296 14.3293 17.3582C12.9579 15.9869 12.1875 14.1269 12.1875 12.1875Z" fill="url(#paint1_linear_321_916)"/>
+								</g>
+								<defs>
+								<linearGradient id="paint0_linear_321_916" x1="19.5" y1="0" x2="19.5" y2="39" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								<linearGradient id="paint1_linear_321_916" x1="19.5" y1="4.875" x2="19.5" y2="19.5" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								<clipPath id="clip0_321_916">
+								<rect width="39" height="39" fill="white"/>
+								</clipPath>
+								</defs>
+							</svg>
+						</div>
+						<div class="bonusProgram-right-banerText">Удвоение депозита</div>
+					</div>
+					<div class="bonusProgram-right-banerCache col-4 banerColl">
+						<div class="bonusProgram-right-banerSVG">
+							<svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M23.1556 20.1572C22.8578 19.315 22.3061 18.5858 21.5767 18.07C20.8473 17.5543 19.9759 17.2773 19.0825 17.2773V16.1975H16.9228V17.2773C15.7773 17.2773 14.6786 17.7324 13.8686 18.5424C13.0586 19.3524 12.6035 20.4511 12.6035 21.5966C12.6035 22.7422 13.0586 23.8408 13.8686 24.6509C14.6786 25.4609 15.7773 25.916 16.9228 25.916V30.2353C15.9834 30.2353 15.1832 29.636 14.8852 28.7959C14.841 28.6584 14.7697 28.5312 14.6754 28.4219C14.5812 28.3125 14.466 28.2231 14.3366 28.159C14.2072 28.0949 14.0663 28.0574 13.9222 28.0487C13.7781 28.04 13.6337 28.0603 13.4975 28.1084C13.3614 28.1565 13.2363 28.2314 13.1296 28.3287C13.0229 28.426 12.9368 28.5437 12.8764 28.6749C12.816 28.806 12.7826 28.9479 12.778 29.0923C12.7734 29.2366 12.7978 29.3803 12.8497 29.515C13.1476 30.3573 13.6992 31.0865 14.4287 31.6022C15.1581 32.118 16.0295 32.3949 16.9228 32.395V33.4748H19.0825V32.395C20.2281 32.395 21.3267 31.9399 22.1367 31.1299C22.9468 30.3198 23.4018 29.2212 23.4018 28.0756C23.4018 26.9301 22.9468 25.8314 22.1367 25.0214C21.3267 24.2114 20.2281 23.7563 19.0825 23.7563V19.437C19.5291 19.4369 19.9648 19.5752 20.3296 19.833C20.6943 20.0908 20.9701 20.4553 21.1191 20.8764C21.2144 21.1465 21.4132 21.3676 21.6716 21.4911C21.7995 21.5523 21.9383 21.5876 22.0799 21.5952C22.2215 21.6027 22.3632 21.5823 22.4969 21.5351C22.6307 21.4879 22.7538 21.4148 22.8592 21.32C22.9647 21.2252 23.0505 21.1105 23.1117 20.9826C23.1728 20.8546 23.2082 20.7159 23.2157 20.5743C23.2233 20.4327 23.2029 20.2909 23.1556 20.1572ZM16.9228 19.437C16.3501 19.437 15.8007 19.6645 15.3957 20.0695C14.9907 20.4745 14.7632 21.0239 14.7632 21.5966C14.7632 22.1694 14.9907 22.7187 15.3957 23.1238C15.8007 23.5288 16.3501 23.7563 16.9228 23.7563V19.437ZM19.0825 30.2353C19.6553 30.2353 20.2046 30.0078 20.6096 29.6027C21.0146 29.1977 21.2422 28.6484 21.2422 28.0756C21.2422 27.5029 21.0146 26.9535 20.6096 26.5485C20.2046 26.1435 19.6553 25.916 19.0825 25.916V30.2353Z" fill="url(#paint0_linear_321_928)"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M6.28987 2.83024C8.93977 1.53336 13.2872 0 18.0449 0C22.7033 0 26.9363 1.46965 29.5721 2.74925L29.7211 2.8216C30.5159 3.21466 31.1573 3.58612 31.6087 3.8874L27.6198 9.71849C36.8156 19.1195 43.9188 38.8707 18.0449 38.8707C-7.82894 38.8707 -0.916934 19.478 8.35882 9.71849L4.39584 3.8874C4.70143 3.68763 5.08909 3.45546 5.55126 3.20926C5.78019 3.08616 6.02639 2.95874 6.28987 2.83024ZM25.0563 9.64074L28.2493 4.97263C25.2798 5.18643 21.7466 5.88401 18.3451 6.86881C15.9155 7.5707 13.2159 7.4638 10.7161 7.00271C10.0862 6.88593 9.46054 6.7469 8.84043 6.5859L10.9137 9.63858C15.3572 11.2205 20.6117 11.2205 25.0563 9.64074ZM9.6665 11.4786C14.8659 13.4871 21.1149 13.4871 26.3143 11.4765C28.4846 13.7643 30.3001 16.3642 31.7005 19.1897C33.1604 22.1679 33.9552 25.145 33.8256 27.7107C33.7003 30.1867 32.7263 32.3021 30.5019 33.8743C28.1835 35.5124 24.2842 36.7111 18.0438 36.7111C11.797 36.7111 7.87938 35.533 5.53938 33.9132C3.29873 32.3604 2.315 30.2742 2.17571 27.8316C2.02993 25.294 2.80741 22.332 4.26194 19.3333C5.64953 16.4739 7.58567 13.7214 9.6665 11.4786ZM8.4247 4.22862C9.28856 4.48562 10.1913 4.70915 11.107 4.87868C13.4286 5.30629 15.7568 5.36893 17.7436 4.79338C20.059 4.11885 22.414 3.58836 24.795 3.20494C22.8081 2.60672 20.4843 2.15966 18.0438 2.15966C14.3238 2.15966 10.8543 3.19738 8.4247 4.22862Z" fill="url(#paint1_linear_321_928)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_928" x1="18.0027" y1="16.1975" x2="18.0027" y2="33.4748" gradientUnits="userSpaceOnUse">
+								<stop stop-color="#E6D0A9"/>
+								<stop offset="1" stop-color="#E5B55D"/>
+								</linearGradient>
+								<linearGradient id="paint1_linear_321_928" x1="18" y1="0" x2="18" y2="38.8707" gradientUnits="userSpaceOnUse">
+								<stop stop-color="#E6D0A9"/>
+								<stop offset="1" stop-color="#E5B55D"/>
+								</linearGradient>
+								</defs>
+							</svg>
+						</div>
+						<div class="bonusProgram-right-banerText">1000 
+							<div class="right-banerText-RubSvg">
+								<svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M1.125 0V5H0V6H1.125V7H0V8H1.125V10H2.25V8H5.0625V7H2.25V6H5.625C7.48125 6 9 4.65 9 3C9 1.35 7.48125 0 5.625 0H1.125ZM2.25 1H5.625C6.87319 1 7.875 1.8905 7.875 3C7.875 4.1095 6.87319 5 5.625 5H2.25V1Z" fill="white"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+					<div class="bonusProgram-right-banerFreeSp col-4 banerColl">
+						<div class="bonusProgram-right-banerSVG">
+							<svg width="33" height="39" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M31.7256 17.2423L4.08277 0.394946C3.675 0.145738 3.20783 0.00955917 2.72955 0.000485144C2.25127 -0.00858888 1.77923 0.109771 1.36223 0.343332C0.94746 0.570289 0.601927 0.904679 0.362152 1.31116C0.122377 1.71765 -0.00273277 2.18112 4.52764e-05 2.65261V36.3474C-0.00273277 36.8189 0.122377 37.2824 0.362152 37.6888C0.601927 38.0953 0.94746 38.4297 1.36223 38.6567C1.77923 38.8902 2.25127 39.0086 2.72955 38.9995C3.20783 38.9904 3.675 38.8543 4.08277 38.6051L31.7256 21.7577C32.1147 21.522 32.4363 21.1906 32.6595 20.7951C32.8827 20.3997 33 19.9537 33 19.5C33 19.0463 32.8827 18.6003 32.6595 18.2049C32.4363 17.8094 32.1147 17.478 31.7256 17.2423ZM30.5246 19.8001L2.87791 36.6475C2.81823 36.6832 2.74992 36.7021 2.68029 36.7021C2.61067 36.7021 2.54236 36.6832 2.48268 36.6475C2.42485 36.6194 2.37616 36.5756 2.34222 36.5212C2.30828 36.4667 2.29046 36.4038 2.29082 36.3397V2.65261C2.29046 2.58851 2.30828 2.52561 2.34222 2.47116C2.37616 2.41671 2.42485 2.37292 2.48268 2.34483C2.54475 2.31035 2.61501 2.29318 2.68605 2.29513C2.75415 2.29756 2.82037 2.31801 2.87791 2.35439L30.5246 19.1999C30.5771 19.2306 30.6206 19.2744 30.6509 19.3271C30.6812 19.3797 30.6971 19.4393 30.6971 19.5C30.6971 19.5607 30.6812 19.6203 30.6509 19.6729C30.6206 19.7256 30.5771 19.7694 30.5246 19.8001Z" fill="url(#paint0_linear_321_923)"/>
+								<defs>
+								<linearGradient id="paint0_linear_321_923" x1="16.5" y1="0" x2="16.5" y2="39" gradientUnits="userSpaceOnUse">
+								<stop offset="0.00312487" stop-color="#E8C463"/>
+								<stop offset="0.201042" stop-color="#C78E2D"/>
+								<stop offset="0.419792" stop-color="#D6AF57"/>
+								<stop offset="0.529067" stop-color="#E4C975"/>
+								<stop offset="0.601983" stop-color="#F4E497"/>
+								<stop offset="0.602083" stop-color="#E4C873" stop-opacity="0.990233"/>
+								<stop offset="0.846875" stop-color="#C38E28" stop-opacity="0.97"/>
+								<stop offset="1" stop-color="#EAC462"/>
+								</linearGradient>
+								</defs>
+							</svg>
+								
+						</div>
+						<div class="bonusProgram-right-banerText">10FS</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="layerTwo">
+		<div class="moneyIn">Пополнить баланс</div>
+		<div class="moneyOut">Вывести</div>
+		<div class="moneyHistory">История</div>
+	</div>
+	<div class="referalBlock">
+	</div>
+</div>
+
+
+{% endblock %}

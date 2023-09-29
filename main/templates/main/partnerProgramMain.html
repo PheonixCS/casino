@@ -1,7 +1,6 @@
 {% extends 'main/mainLayout.html' %}
 {% load static %}
 
-
 {% block css %}
     <link rel="stylesheet" type='text/css' href="{% static 'main/css/partnerProgramMain.css' %}">
     <link rel="stylesheet" type='text/css' href="{% static 'main/css/partnerProgramAutoris.css' %}">
@@ -17,40 +16,34 @@
 {% block content %}
 <div class = "bodyContent">
     {% if user.is_authenticated %}
-    <!-- <div id="userProfileMobile">
-        <img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
-        <div class="userProfileMobile-mainInfo">
-            <div class="userProfileMobile-UserName">{{ user.username }}</div>
-            <div class="userProfileMobile-statusUP">статус: {{ user.status }}</div>
-        </div>
-        <div class="userProfileMobile-balanse">
-            <div class="userProfileMobile-UserRUB">20000 <p>RUB</p></div>
-            <div class="userProfileMobile-UserBonus">20000 <p>BONUS</p></div>
-        </div>		
-        <a class="button" href="#">Личный кабинет</a>
-        <a class="button logout-buttonMobile" id="logout-button" href="{% url 'logout' %}">
-            <span class="cross-icon"></span>
-        </a>
-    </div> -->
     <div class="bodyContent-layerOne">
-        <div class="layerOne-profil"> 
-            <img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
-            <div class="userProfileMobile-mainInfo">
-                <div class="userProfileMobile-UserName">{{ user.username }}</div>
-                <div class="userProfileMobile-statusUP profilText">статус: {{ user.status }}</div>
-                <div class="userProfileMobile-statusUP profilText">баллы: {{ user.points }}</div>
-                <div class="userProfileMobile-statusUP profilText">баланс: {{ user.balance }}</div>
-            </div>
+      <div class="layerOne-profil"> 
+          <img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
+        <div class="userProfileMobile-mainInfo userProfileMobile-mainInfo-part">
+          <div class="userProfileMobile-UserName">{{ user.username }}</div>
+          <div class="userProfileMobile-statusUP profilText">статус: {{ user.status }}</div>
+          <div class="userProfileMobile-statusUP profilText">баллы: {{ user.points }}</div>
+          <div class="userProfileMobile-statusUP profilText">баланс: {{ user.balance }}</div>
         </div>
-        <div class="bodyContent-layerOne-baner col-6">
-            банер/картинка/???
-        </div>
+      </div>
+      <div class="bodyContent-layerOne-baner col-6">
+          банер/картинка/???
+      </div>
     </div>
     <div class="bodyContent-layerTwo">
         {% if referrals %}
-        {% for referral in referrals %}
-            <div>{{ referral.referred_user.username }}</div>
-        {% endfor %}
+            <div class="bodyContent-layerTwo-header row">
+                <div class="header-col col-4">рефералы</div>
+                <div class="header-col col-4">прибыль</div>
+                <div class="header-col col-4">последняя активность</div>
+            </div>
+            {% for referral in referrals %}
+            <div class="bodyContent-layerTwo-str row">
+                <div class="str-uName col-4">      {{ referral.referred_user.username }}</div>
+                <div class="str-uStonks col-4">    {{ referral.referred_user.username }}</div>
+                <div class="str-uLastActive col-4">{{ referral.referred_user.username }}</div>
+            </div>
+            {% endfor %}
         {% else %}
             <div class="layerTwo-epsentRef">У Вас пока нет рефералов</div>
         {% endif %}

@@ -8,8 +8,8 @@
 .layerOne-profil {
     /* Rectangle 72 */
     display: flex;
-    background: #090806;
-    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    background: #3a3a3a7d;
+    box-shadow: 0px 0px 13px 0px #FFFFFF;
     border-radius: 8px;
     padding: 25px;
 }
@@ -19,8 +19,8 @@
 }
 .bodyContent-layerOne-baner {
     display: flex;
-    background: #090806;
-    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    background: #3a3a3a7d;
+    box-shadow: 0px 0px 13px 0px #FFFFFF;
     border-radius: 8px;
     font-family: 'Brygada 1918';
     font-style: normal;
@@ -43,9 +43,16 @@
 
     align-items: center;
 
-    background: #090806;
-    box-shadow: 0px 0px 13px 1px #FFFFFF;
+    background: #3a3a3a7d;
+    box-shadow: 0px 0px 13px 0px #FFFFFF;
     border-radius: 8px;
+
+
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    padding-bottom: 10px;
+
 }
 .layerTwo-epsentRef {
     font-family: 'Brygada 1918';
@@ -62,7 +69,7 @@
     font-size: 20px;
     margin-top: 3px;
 }
-.userProfileMobile-mainInfo {
+.userProfileMobile-mainInfo-part {
     margin-left: 20px;
 }
 
@@ -117,15 +124,77 @@
 .layerThree-copy {
     background: linear-gradient(90deg, #AC9061 0%, #FFEFD0 40.94%, #FFEFD0 60.21%, #AC9061 100%);
     border-radius: 100px;
-    padding: 10px;
+    padding-bottom: 3px;
     width: 140px;
     text-align: center;
-
     font-family: 'Brygada 1918';
     font-style: normal;
-    font-weight: 1000;
+    font-weight: 600;
     font-size: 24px;
     cursor: pointer;
     color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+
+
+
+.bodyContent-layerTwo-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.header-col {
+    /* рефералы */
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 133.02%;
+    /* or 45px */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    justify-content: center;
+}
+
+.bodyContent-layerTwo-str {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-top: 2px solid #ffffff6e;
+    border-bottom: 2px solid #ffffff6e;
+}
+.bodyContent-layerTwo-str>div{
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media (max-width: 910px) {
+    .bodyContent-layerOne-baner {
+        display: none;
+    }
+    .bodyContent-layerOne {
+        display: flex;
+        width: 80%;
+        margin-top: 90px;
+        justify-content: center;
+    }
+    .bodyContent-layerTwo {
+        display: flex;
+        width: 90%;
+    }
+}

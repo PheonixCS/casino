@@ -18,6 +18,20 @@ def about(request):
 	return render(request,'main/about.html')
 def ruls(request):
 	return render(request,'main/ruls.html')
+def peAc(request):
+    if request.user.is_authenticated:
+        user = request.user
+        if user.status < 4:
+             nextST = user.status+1
+        else:
+             nextST = "max"
+        context = {
+            'nextST' : nextST,
+            'user': user
+        }
+        return render(request,'main/peAc.html', context)
+    else:
+        return render(request,'/') 
 def part(request):
     if request.user.is_authenticated:
         user = request.user

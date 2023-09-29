@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'casino.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'devDB',
+        'NAME': 'devdb',
         'USER': 'root',
         'PASSWORD': 'Aaa-9-99',
         'HOST': 'localhost',

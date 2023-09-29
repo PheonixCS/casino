@@ -1,0 +1,362 @@
+.bodyContent {
+	display: flex;
+	flex-direction: column;
+}
+.layerOne {
+	display: flex;
+	justify-content: space-around;
+}
+.profil {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 10%;
+	background-color: #090806;
+	border-radius: 8px;
+	border: solid 1px white;
+}
+.profil img {
+	width: 100px;
+}
+.avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.profil-info {
+	width: 100%;
+}
+.profil-info>div , .profil-menu{
+	text-align: center;
+}
+.name {
+	/* +7-xxx-xxx-xx-xx */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 133.02%;
+	/* identical to box height, or 36px */
+	letter-spacing: 0.04em;
+
+	color: #A3A3A3;
+}
+.profileText {
+
+	/* Личные данные */
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 133.02%;
+	/* or 29px */
+	letter-spacing: 0.04em;
+
+	color: #FFFFFF;
+}
+.balanse {
+	display: flex;
+	justify-content: space-around;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.balanseText {
+	/* Ваш баланс: */
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 133.02%;
+	/* or 29px */
+	letter-spacing: 0.04em;
+
+	/* золото */
+	background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.profil-menu {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	text-align: left;
+	margin-top: 21px;
+}
+.profil-menu-border {
+	border-top:solid 1px white;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.profil-menu-exit {
+	display: flex;
+	align-items: center;
+}
+.profile-menu-exitButt {
+	padding-right: 5px;
+}
+.profile-menu-exitButt>svg {
+	max-width: 20px;
+}
+
+
+
+
+.bonusProgram {
+	display: flex;
+	border: solid 1px white;
+	border-radius: 8px;
+	padding-left: 20px;
+	padding-top: 10px;
+	width: 67%;
+}
+.bonusProgram-left-title {
+	/* Бонус */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 56px;
+
+	color: #E8E8E8;
+}
+.bonusProgram-progress {
+	display: flex;
+	margin-top: 2px;
+}
+.step-text {
+	display: flex;
+	width: 52px;
+	height: 52px;
+	border: solid 1px #FFEACB;
+	justify-content: center;
+	align-items: center;
+	border-radius: 52px;
+
+
+
+	/* Ellipse 9 */
+
+	box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.09);
+	box-shadow: 0px 0px 5px 1px #FFEACB;
+	transform: rotate(0.1deg);
+
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 23px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 0px 3px #FFFFFF;
+	transform: rotate(0.1deg);
+}
+.bonusProgram-progress-seporator {
+	height: fit-content;
+	margin-top: 12px;
+}
+.bonusProgram-progress-seporator>svg {
+	width: 60px;
+}
+
+.step-conditions {
+	/* 1000 */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+
+	color: #E1E1E1;
+	margin-top: 5px;
+}
+
+.bonusProgram-progress-step {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.bonusProgram-infoStatus {
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+}
+.bonusProgram-infoStatus-balanse {
+	display: flex;
+}
+.bonusProgram-infoStatus-balanseText {
+	/* Ваш баланс: */
+
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 133.02%;
+	/* identical to box height, or 32px */
+	letter-spacing: 0.04em;
+
+	/* текст казино */
+	background: linear-gradient(92.75deg, #EEBF68 -5.42%, #FFD68C 24.25%, #FFD68C 61.47%, rgba(238, 191, 104, 0.99) 104.75%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+.bonusProgram-infoStatus-balanseCount {
+	/* Сумма */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	/* identical to box height, or 32px */
+	letter-spacing: 0.04em;
+	margin-left: 5px;
+	color: #FFFFFF;
+}
+.balanseSVGIco {
+	margin-left: 5px;
+}
+
+.btnMoneyIn {
+	width: fit-content;
+
+	/* Rectangle 88 */
+
+	box-sizing: border-box;
+
+
+	background: rgba(255, 255, 255, 0.09);
+	border: 1px solid #FFFFFF;
+	border-radius: 8px;
+
+
+	/* Пополнить баланс */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 133.02%;
+	/* or 33px */
+	letter-spacing: 0.04em;
+
+	color: #DCDCDC;
+
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	margin-top: 30px;
+}
+.bonusProgram-right {
+	display: flex;
+	margin-left: 10px;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+
+	
+
+}
+.bonusProgram-right-title{
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 25px;
+	line-height: 56px;
+	color: #E8E8E8;
+}
+
+.bonusProgram-rightSeporator>svg {
+	height: 50px;
+}
+.bonusProgram-right-nextStatus {
+	/* Первый 10% */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 42px;
+
+	/* золото */
+	background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+
+	text-shadow: 0px 0px 2px #FFFFFF;
+
+}
+
+
+.bonusProgram-right-baner {
+	width: 95%;
+	/* Rectangle 87 */
+
+	box-sizing: border-box;
+
+
+	background: rgba(255, 255, 255, 0.03);
+	border: 0.5px solid #FFFFFF80;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.bonusProgram-right-banerTitle {
+	/* Бонусы */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 35px;
+	/* identical to box height */
+
+	color: #DAD5D5;
+	text-align: center;
+
+}
+
+.banerColl {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	margin-top: 10px;
+}
+
+
+.right-banerText-RubSvg>svg {
+	width: 12px;
+	height: auto;
+	margin-left: 5px;
+}
+.bonusProgram-right-banerText {
+	/* Удвоение депозита */
+	display: flex;
+	flex-direction: row;
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+
+	color: #FFFFFF;
+	margin-top: 10px;
+}
