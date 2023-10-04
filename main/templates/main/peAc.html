@@ -352,9 +352,36 @@
 		</div>
 	</div>
 	<div class="layerTwo">
-		<div class="moneyIn">Пополнить баланс</div>
-		<div class="moneyOut">Вывести</div>
-		<div class="moneyHistory">История</div>
+		<div class="layerTwoMenu">
+			<div id="moneyIn" class="layerTwo-MenuText">Пополнить баланс</div>
+			<div id="moneyOut" class="layerTwo-MenuText">Вывести</div>
+			<div id="moneyHistory" class="layerTwo-MenuText">История</div>
+		</div>
+		<div id="blockMoneyIn" class="block">
+			<form>
+				<label for="amount" class="formText">Введите сумму:</label>
+				<input type="number" step="0.01" min="0" placeholder="0" class="input-cash text-default font-medium lh-1" value="">
+				<label class="paymentMethod formText">Способ оплаты: СПБ</label>
+				<button type="button" class="btn-sbp btn btn-primary" style="margin-bottom: 15px;">
+					<img src="{% static 'main/img/sbp.png' %}" alt="sbp" width="40" style="margin-right: 40px; width:40px;">
+					<div class="text-center card-text-input" style="letter-spacing: normal;">Оплата по СБП</div>
+				</button>
+			</form>
+		</div>
+		<div id="blockMoneyOut" class="block">
+			<div class="solvedOutBalanse">Разрешенная сумма для вывода:</div>
+			<form>
+				<label for="amount" class="formText">Введите сумму для вывода:</label>
+				<input type="number" step="0.01" min="0" placeholder="Сумма от 1000" class="input-cash text-default font-medium lh-1" value="">
+				<label class="paymentMethod formText">С учетом комиссии:</label>
+				<input type="number" step="0.01" min="0" placeholder="Введите номер карты" class="input-cash text-default font-medium lh-1" value="">
+				<input type="number" step="0.01" min="0" placeholder="Заметка(необязательно)" class="input-cash text-default font-medium lh-1 lastInp" value="">
+				<button type="button" class="btnBalanseOut">
+					<div class="btnBalanseOut-text" style="letter-spacing: normal;">Вывести средства</div>
+				</button>
+			</form>
+		</div>
+		<div id="blockMoneyHistory" class="block">Блок для истории</div>
 	</div>
 	<div class="referalBlock">
 	</div>

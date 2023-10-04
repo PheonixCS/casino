@@ -5,6 +5,7 @@
 .layerOne {
 	display: flex;
 	justify-content: space-around;
+	margin-top: 80px;
 }
 .profil {
 	display: flex;
@@ -111,7 +112,6 @@
 	border: solid 1px white;
 	border-radius: 8px;
 	padding-left: 20px;
-	padding-top: 10px;
 	width: 67%;
 }
 .bonusProgram-left-title {
@@ -265,13 +265,12 @@
 }
 .bonusProgram-right {
 	display: flex;
-	margin-left: 10px;
+	margin-left: 20px;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-
-	
-
+	border-left: solid 1px white;
+	padding-left: 10px;
 }
 .bonusProgram-right-title{
 	font-family: 'Brygada 1918';
@@ -359,4 +358,203 @@
 
 	color: #FFFFFF;
 	margin-top: 10px;
+}
+
+
+.layerTwo {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	flex-direction: column;
+	align-items: center;
+}
+
+.layerTwo-MenuText {
+	/* Получить выигрыш */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 53px;
+	/* identical to box height */
+
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.layerTwoMenu {
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+
+
+.block {
+	margin-top: 30px;
+  padding: 20px;
+  background-color: #f2f2f200;
+}
+.block>h2 {
+  margin-top: 0;
+}
+.block>form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.block>label {
+  display: block;
+  margin-bottom: 10px;
+}
+.block>input[type="number"],
+.block>select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.block>button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.block>button:hover {
+  background-color: #45a049;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+.input-cash {
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+
+	max-width: 400px;
+	height: 40px;
+	text-align: center;
+	padding: 0.25rem;
+	/* Rectangle 90 */
+
+	box-sizing: border-box;
+
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid #FFFFFF;
+	border-radius: 4px;
+
+
+
+	/* Сумма от 3000 */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 133.02%;
+	/* identical to box height, or 43px */
+	text-align: center;
+	letter-spacing: 0.04em;
+
+	color: rgba(255, 255, 255, 0.71);
+
+
+}
+
+.paymentMethod {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.btn-sbp, .btn-sbp:active, .btn-sbp:focus, .btn-sbp:hover {
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 100%;
+	height: 40px;
+	background: #fff;
+	border: 1px solid #dee2e6!important;
+	padding: 5px 8px;
+	color: #3e5569!important;
+	font-size: 12px;
+	margin: 0.25rem auto;
+	max-width: 327px;
+	font-family: "Myriad Regular";
+}
+.formText {
+	/* Пополнить */
+	/* Выберите сумму для вывода: */
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 21px;
+	line-height: 133.02%;
+	/* identical to box height, or 48px */
+	text-align: center;
+	letter-spacing: 0.04em;
+
+	color: #FFFFFF;
+}
+
+
+
+.solvedOutBalanse {
+	/* Доступная длы вывода сумма: 0 руб. */
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 133.02%;
+	/* identical to box height, or 48px */
+	text-align: center;
+	letter-spacing: 0.04em;
+
+	color: rgba(255, 255, 255, 0.71);
+
+	border-bottom: solid 1px white;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.lastInp {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.btnBalanseOut {
+	/* Rectangle 86 */
+
+	box-sizing: border-box;
+	border-radius: 8px;
+	border: solid 1px goldenrod;
+	background-color: #09080600;
+}
+
+.btnBalanseOut-text {
+	/* Вывести средства */
+
+	font-family: 'Brygada 1918';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 133.02%;
+	/* identical to box height, or 48px */
+	letter-spacing: 0.04em;
+
+	color: #FFFFFF;
+
+
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+
 }

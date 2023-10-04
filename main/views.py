@@ -4,7 +4,8 @@ from .models import Stock
 from .models import User
 from .models import Referral
 from django.contrib.auth import authenticate, login, logout
-import random
+from django.http import JsonResponse
+import requests
 
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
@@ -76,4 +77,72 @@ def login_view(request):
     return render(request, 'main/index.html')
 def logout_view(request):
     logout(request)
-    return redirect('/') 
+    return redirect('/')
+
+
+
+def slots_init(request):
+		token = request.GET.get('token')
+		login_hash = request.GET.get('hash')
+		
+		# получаем из БД
+		balance = 100000.0
+		scheme_handle = "Scheme"  # Пример значения из файла 
+		
+		response_data = {
+				'balance': balance,
+				'handle': scheme_handle,
+		}
+		return JsonResponse(response_data)
+
+def spin_request(request):
+	token = request.GET.get('token')
+	bet = int(request.GET.get('bet'))
+	lines = [int(line) for line in request.GET.get('lines').split(',')]
+	free_spin_count = 0
+	limit = -1.0
+	response_data = {
+			'freeSpinCount': free_spin_count,
+			'bet': bet,
+			'limit': limit,
+			'balance': 100000.0,  # Пример значения баланса игрока
+			'handle': 'Scheme',  # Пример значения из файла Scheme.json
+			'lines': lines,
+	}
+	response = requests.post('http://your-domain.com/path/to/Slot.php', json=response_data)
+	# Проверка наличия ошибки в JSON-ответе
+	if 'error' in response.json():
+			# Обработка ошибки
+			return JsonResponse({'error': 'An error occurred'})
+		# Извлечение данных из JSON-ответа
+	balance = response.json().get('balance')
+	total_win = response.json().get('totalWin')
+	free_spin_count = response.json().get('freeSpinCount')
+	
+
+	connect_response = {
+		'balance': balance,
+		'totalWin': total_win,
+		'bet': bet,
+		'window': response.json().get('window'),
+		'special': response.json().get('special'),
+		'lines': response.json().get('lines'),
+		'complex': response.json().get('complex'),
+		'freeSpin': response.json().get('freeSpin'),
+		'bonus': response.json().get('bonus'),
+		'freeSpinCount': free_spin_count,
+	}
+	return JsonResponse(connect_response)
+
+def slot_php(request):
+	# Получение JSON-ответа от spin_request
+	json_data = request.body.decode('utf-8')
+	response = requests.post('http://your-domain.com/path/to/Slot.php', data=json_data)
+	if response.status_code == 200:
+		# Парсинг JSON-ответа
+		response_data = response.json()
+		# Возвращение JSON-ответа в качестве ответа Django
+		return JsonResponse(response_data)
+	else:
+		# Обработка ошибки, если ответ от Slot.php не был успешным
+		return JsonResponse({'error': 'An error occurred'})
