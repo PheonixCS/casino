@@ -5,6 +5,7 @@ from imagekit.processors import ResizeToFit
 from imagekit.models import ImageSpecField
 import random
 import string
+import hashlib
 # Create your models here.
 
 # здесь добавить акции
@@ -45,9 +46,12 @@ class User(AbstractUser):
 	referral_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
 	points = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 	balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+	token = models.CharField(max_length=32, blank=True, null=True)
 	def save(self, *args, **kwargs):
 			if not self.referral_code:
 					self.referral_code = self.generate_unique_referral_code()
+			if not self.token:
+				self.token = hashlib.md5(self.username.encode()).hexdigest()
 			super().save(*args, **kwargs)
 	def generate_unique_referral_code(self):
 			code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))

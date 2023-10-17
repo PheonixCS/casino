@@ -6,6 +6,11 @@ from .models import Referral
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import requests
+from django.http import HttpResponse
+from urllib.parse import urlencode
+import hashlib
+import base64
+from datetime import datetime
 
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
@@ -76,73 +81,122 @@ def login_view(request):
         return redirect('/')  # перенаправление на главную страницу после входа
     return render(request, 'main/index.html')
 def logout_view(request):
-    logout(request)
-    return redirect('/')
+	logout(request)
+	return redirect('/')
 
-
+def get_token(request):
+	# Ваша логика для получения токена
+	# если пользователь аутентифицирован
+	if request.user.is_authenticated:
+			# получаем логин 
+			login = request.user.username
+			#получаем текущее время
+			current_time = datetime.now()
+			# получаем токен до хеширования
+			token_data = login + str(current_time)
+			#хешируем
+			token = hashlib.md5(token_data.encode()).hexdigest()
+			#перезаписываем в сессии
+			request.user.token = token
+			#перезаписываем в базе
+			request.user.save()
+			#возвращаем токен
+			return JsonResponse({"token": token})
+	#если не аутентифирован то
+	#генерируем нулевой токен и возваращаем 0 и ошибку 0
+	#ошибка 0 означает что пользователь не аутентифирован
+	else:
+			token = 0
+			return JsonResponse(
+					{"token": token, "error": 0}
+			)
+def run_game(request):
+	token = str(request.GET.get("token"))
+	path = request.GET.get("path")
+	url = f"/static/main/games/{path}/index.html?token={token}"
+	return redirect(url)
 
 def slots_init(request):
-		token = request.GET.get('token')
-		login_hash = request.GET.get('hash')
-		
-		# получаем из БД
-		balance = 100000.0
-		scheme_handle = "Scheme"  # Пример значения из файла 
-		
-		response_data = {
-				'balance': balance,
-				'handle': scheme_handle,
-		}
-		return JsonResponse(response_data)
+	#game = request.GET.get("game")
+	token = request.GET.get("token")
+	user = User.objects.filter(token=token).first()
+
+	if user:
+			balance = user.balance
+	else:
+			# Обработка случая, когда пользователь не найден
+			balance = None  # или другое значение по умолчанию
+
+	with open(
+			"C:/Projects/casino/static/main/slot_logic/Schemes/Scheme.json",
+			"rb",
+	) as file:
+			scheme_bytes = file.read()
+	encoded_scheme = base64.b64encode(scheme_bytes).decode()
+	scheme_handle = encoded_scheme  # Пример значения из файла
+
+	response_data = {
+			"balance": balance,
+			"handle": scheme_handle,
+			"token": token,
+	}
+	return JsonResponse(response_data)
 
 def spin_request(request):
-	token = request.GET.get('token')
-	bet = int(request.GET.get('bet'))
-	lines = [int(line) for line in request.GET.get('lines').split(',')]
+	token = request.GET.get("token")
+	bet = request.GET.get("bet")
+	lines = [int(line) for line in request.GET.get("lines").split(",")]
 	free_spin_count = 0
 	limit = -1.0
+	# with open(
+	# 		"C:/Projects/casino/static/main/slot_logic/Schemes/Scheme.json",
+	# 		"rb",
+	# ) as file:
+	# 		scheme_bytes = file.read()
+	#encoded_scheme = base64.b64encode(scheme_bytes).decode()
+	#scheme_handle = encoded_scheme  # Пример значения из файла
+	user = User.objects.filter(token=token).first()
 	response_data = {
-			'freeSpinCount': free_spin_count,
-			'bet': bet,
-			'limit': limit,
-			'balance': 100000.0,  # Пример значения баланса игрока
-			'handle': 'Scheme',  # Пример значения из файла Scheme.json
-			'lines': lines,
+			"freeSpinCount": free_spin_count,
+			"bet": bet,
+			"limit": limit,
+			"balance": user.balance,  # Пример значения баланса игрока
+			"handle": "Scheme",  # Пример значения из файла Scheme.json
+			"lines": lines,
+			"ignoreSpecial": ["FreeSpin","Bonus"],
+			"complex_get": False,
+			"wild_ID": -1,
+			"winner": False
 	}
-	response = requests.post('http://your-domain.com/path/to/Slot.php', json=response_data)
+	response = requests.post(
+			"http://127.0.0.1/static/main/slot_logic/slot.php", json=response_data
+	)
+	#return JsonResponse(response.json())
 	# Проверка наличия ошибки в JSON-ответе
-	if 'error' in response.json():
+	if "error" in response.json():
 			# Обработка ошибки
-			return JsonResponse({'error': 'An error occurred'})
-		# Извлечение данных из JSON-ответа
-	balance = response.json().get('balance')
-	total_win = response.json().get('totalWin')
-	free_spin_count = response.json().get('freeSpinCount')
-	
-
+			return JsonResponse({"error": "An error occurred"})
+	# Извлечение данных из JSON-ответа
+	balance = response.json().get("balance")
+	total_win = response.json().get("totalWin")
+	free_spin_count = response.json().get("freeSpinCount")
+	user.balance = balance
+	user.save()
 	connect_response = {
-		'balance': balance,
-		'totalWin': total_win,
-		'bet': bet,
-		'window': response.json().get('window'),
-		'special': response.json().get('special'),
-		'lines': response.json().get('lines'),
-		'complex': response.json().get('complex'),
-		'freeSpin': response.json().get('freeSpin'),
-		'bonus': response.json().get('bonus'),
-		'freeSpinCount': free_spin_count,
+			"balance": balance,
+			"totalWin": total_win,
+			"bet": response.json().get("bet"),
+			"window": response.json().get("window"),
+			"special": response.json().get("special"),
+			"lines": response.json().get("lines"),
+			"complex": response.json().get("complex"),
+			"freeSpin": response.json().get("freeSpin"),
+			"bonus": response.json().get("bonus"),
+			"freeSpinCount": free_spin_count,
 	}
 	return JsonResponse(connect_response)
 
-def slot_php(request):
-	# Получение JSON-ответа от spin_request
-	json_data = request.body.decode('utf-8')
-	response = requests.post('http://your-domain.com/path/to/Slot.php', data=json_data)
-	if response.status_code == 200:
-		# Парсинг JSON-ответа
-		response_data = response.json()
-		# Возвращение JSON-ответа в качестве ответа Django
-		return JsonResponse(response_data)
-	else:
-		# Обработка ошибки, если ответ от Slot.php не был успешным
-		return JsonResponse({'error': 'An error occurred'})
+def take_request(request):
+	token = request.GET.get("token")
+	## проверка на токен
+	return JsonResponse({"result":"success"})

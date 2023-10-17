@@ -8,8 +8,7 @@
 	<style>
 		html,
 		body {
-			background-color: #000;
-			background: url(TemplateData/tiled.png) repeat;
+			background: #000;
 			width: 100%;
 			height: 100%;
 			overflow: visible;
@@ -100,29 +99,13 @@
 			});
 			window.addEventListener('resize', onResize);
 			onResize();
-			
-		function sendMessageToUnity() {
-			unityGame.SendMessage("[Bridge]", "ReceiveMessageFromPage", window.location.href);
-		}
-   
-		function enableFullscreen() {
-			unityGame.SetFullscreen(1);
-		}
-   
-		function disableFullscreen() {
-			unityGame.SetFullscreen(0);
-		}
-   
-		function getExitFromUnity() {
-			window.open('https://club.kingsofprize.com/', '_self').focus();
-		}
 		
-		function toError() {
-			window.open('https://club.kingsofprize.com/error?err=1', '_self').focus();
+		function GetFullscreen(val) {
+			unityGame.SetFullscreen(val);
 		}
-		
-		function toWallet() {
-			window.open('https://club.kingsofprize.com/?msg=7', '_self').focus();
+
+		function GetToPage(_data) {
+			window.open(_data, '_self').focus();
 		}			
 		</script>
 	</div>

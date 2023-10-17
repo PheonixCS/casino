@@ -1,0 +1,155 @@
+.main-content {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+#bodyMainContent-GamesCollections {
+    display: flex;
+    
+    margin-top: 28px;
+
+    justify-content: space-around;
+}
+.stock-card {
+    background-color: #333;
+    color: #F8EFDE;
+    border: 0.7px solid #FFEFCF;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center; /* Добавлено для центрирования текста */
+    border-radius: 6px;
+  }
+  .stock-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .stock-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  .stock-card p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  /* Стили для кнопки "подробнее" */
+  .stock-card .btn-details {
+    background-color: #333;
+    color: #F8EFDE;
+    padding: 5px 10px;
+    border: none;
+    transform: rotate(45deg); /* Добавлено для создания формы ромба */
+    margin-top: 10px;
+  }
+  .stock-card .btn-details:hover {
+    background-color: #555;
+  }
+  .stock-description {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+
+    /* Rectangle 76 */
+
+    background: rgba(40, 43, 50, 0.96);
+    border: 1px solid #f1e83d;
+    border-radius: 55px;
+
+  }
+  .stock-description.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .stock-description .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ccc;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .darken {
+    overflow: hidden;
+  }
+  .darken:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+  .btn-close {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #ccc;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+
+  .stock-description-title {
+    /* Бонус 15% на минимальный депозит На сумму депозитов от 1 000 ₽ */
+
+    font-family: 'Brygada 1918';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 58px;
+    line-height: 73px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    /* золото */
+    background: linear-gradient(180deg, #E8C463 0.31%, #C78E2D 20.1%, #D6AF57 41.98%, #E4C975 52.91%, #F4E497 60.2%, rgba(228, 200, 115, 0.990233) 60.21%, rgba(195, 142, 40, 0.97) 84.69%, #EAC462 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stock-description-text {
+    /* В этой акции вы можете получить 15% от суммы депозита. Минимальная сумма депозитов для получения бонуса – 1000 RUB. После активации предложения сумму депозитов можно внести одним или несколькими платежами, пока не истекло время на таймере. Если вы вносите несколько депозитов, бонус будет выдан вместе с депозитом, который */
+
+    font-family: 'Poiret One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 53px;
+    letter-spacing: 0.13em;
+
+    color: #EDEDED;
+
+  }
+
+@media (min-width: 700px){
+  .stock-description{
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 700px){
+  .stock-description{
+    min-width: 90%;
+  }
+}

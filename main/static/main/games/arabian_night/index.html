@@ -99,29 +99,13 @@
 			});
 			window.addEventListener('resize', onResize);
 			onResize();
-			
-		function sendMessageToUnity() {
-			unityGame.SendMessage("[Bridge]", "ReceiveMessageFromPage", window.location.href);
-		}
-   
-		function enableFullscreen() {
-			unityGame.SetFullscreen(1);
-		}
-   
-		function disableFullscreen() {
-			unityGame.SetFullscreen(0);
-		}
-   
-		function getExitFromUnity() {
-			window.open('/', '_self').focus();
-		}
 		
-		function toError() {
-			window.open('/', '_self').focus();
+		function GetFullscreen(val) {
+			unityGame.SetFullscreen(val);
 		}
-		
-		function toWallet() {
-			window.open('/', '_self').focus();
+
+		function GetToPage(_data) {
+			window.open(_data, '_self').focus();
 		}			
 		</script>
 	</div>

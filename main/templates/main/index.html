@@ -240,10 +240,10 @@
 						<div class="gameLogo"><img src="{{ game.icoPath.url }}"></div>
 						<div class="gameName">{{ game.GameName }}</div>
 						<div class="hiddenCardMenu">
-							<div class="demo">
+							<div class="demo playDemo" data-gamepath="{{ game.gamePath }}">
 								Демо
 							</div>
-							<div class="play">
+							<div class="play" data-gamepath="{{ game.gamePath }}">
 								<div class="playText">Играть</div>
 							</div>
 						</div>

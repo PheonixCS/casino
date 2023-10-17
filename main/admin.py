@@ -10,11 +10,12 @@ admin.site.register(Game)
 admin.site.register(Stock)
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'avatar_thumbnail')
-    fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'email', 'avatar')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
-    )
+	list_display = ("username", "email", "avatar_thumbnail", "token")
+	fieldsets = (
+			(None, {'fields': ('username', 'password')}),
+			('Personal Info', {'fields': ('first_name', 'last_name', 'email', 'avatar')}),
+			#('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+			#('Important dates', {'fields': ('last_login', 'date_joined')}),
+			('balance',{'fields':('balance',)}),
+	)
 admin.site.register(User, CustomUserAdmin)

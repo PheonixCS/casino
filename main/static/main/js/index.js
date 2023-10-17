@@ -177,4 +177,46 @@ $(document).ready(function(){
             $('.hiddenCardMenu').css({'display':'none'});
         });
     });
+
+
+		// логика запуска игры получаем токен
+		function getAuthToken() {
+			return new Promise(function (resolve, reject) {
+					$.ajax({
+							url: '/get_token/', // URL для получения токена
+							type: 'GET',
+							dataType: 'json',
+							success: function (response) {
+									resolve(response.token);
+							},
+							error: function (error) {
+									reject(error);
+							}
+					});
+			});
+	}
+	$('.play').click(function () {
+			var gamePath = $(this).data('gamepath');
+			console.log(gamePath)
+			// Получение токена текущего пользователя
+			getAuthToken().then(function (token) {
+					// Формирование URL для запуска игры
+					var gameUrl = "/run_game?path=" + gamePath + "&token=" + token;
+					window.open(gameUrl, '_blank');
+					// Здесь можно выполнить дополнительные действия, например, перенаправить на gameUrl
+					console.log('Игра запускается:', gameUrl);
+			}).catch(function (error) {
+					console.error('Ошибка получения токена:', error);
+			});
+	});
+	$('.playDemo').click(function () {
+		var gamePath = $(this).data('gamepath');
+		console.log(gamePath)
+		// Получение токена текущего пользователя
+		// Формирование URL для запуска игры
+		var gameUrl = "/run_game?path=" + gamePath + "&token=0";
+		window.open(gameUrl, '_blank');
+		// Здесь можно выполнить дополнительные действия, например, перенаправить на gameUrl
+		console.log('Игра запускается:', gameUrl);
+	});
 });
