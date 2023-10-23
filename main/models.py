@@ -45,7 +45,7 @@ class User(AbstractUser):
 	status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 	referral_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
 	points = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-	balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+	balance = models.FloatField(max_length=10, default=0.00)
 	token = models.CharField(max_length=32, blank=True, null=True)
 	def save(self, *args, **kwargs):
 			if not self.referral_code:

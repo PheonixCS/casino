@@ -25,7 +25,7 @@ SECRET_KEY = ')f$ev)7p8vv00@t&7eq^q!9l$$w1879e29obgre-#^l0dg6l^('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","5.101.4.164","top-developments.ru", "www.top-developments.ru"]
 
 
 # Application definition
@@ -77,8 +77,8 @@ WSGI_APPLICATION = 'casino.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'devdb',
-        'USER': 'root',
+        'NAME': 'casinoDB',
+        'USER': 'casino_user',
         'PASSWORD': 'Aaa-9-99',
         'HOST': 'localhost',
         'PORT': '3306',

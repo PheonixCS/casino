@@ -129,7 +129,7 @@ def slots_init(request):
 			balance = None  # или другое значение по умолчанию
 
 	with open(
-			"C:/Projects/casino/static/main/slot_logic/Schemes/Scheme.json",
+			"/var/www/casino/static/main/slot_logic/Schemes/Scheme.json",
 			"rb",
 	) as file:
 			scheme_bytes = file.read()

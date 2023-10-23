@@ -12,11 +12,7 @@ import imagekit.models.fields
 class Migration(migrations.Migration):
 
     initial = True
-
-    dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
-    ]
-
+    dependencies = [(),]
     operations = [
         migrations.CreateModel(
             name='User',
@@ -36,7 +32,7 @@ class Migration(migrations.Migration):
                 ('status', models.IntegerField(choices=[(1, 'Статус 1'), (2, 'Статус 2'), (3, 'Статус 3'), (4, 'Статус 4'), (5, 'Статус 5')], default=1)),
                 ('referral_code', models.CharField(blank=True, max_length=10, null=True, unique=True)),
                 ('points', models.DecimalField(decimal_places=2, default=0.0, max_digits=10)),
-                ('balance', models.DecimalField(decimal_places=2, default=0.0, max_digits=10)),
+                ('balance', models.FloatField(max_length=10, default=0.0)),
                 ('groups', models.ManyToManyField(related_name='main_users', to='auth.group')),
                 ('user_permissions', models.ManyToManyField(related_name='main_users_permissions', to='auth.permission')),
             ],
