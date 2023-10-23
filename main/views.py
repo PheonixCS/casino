@@ -3,6 +3,7 @@ from .models import Game
 from .models import Stock
 from .models import User
 from .models import Referral
+from .models import Balance
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import requests
@@ -147,7 +148,7 @@ def spin_request(request):
 	bet = request.GET.get("bet")
 	lines = [int(line) for line in request.GET.get("lines").split(",")]
 	free_spin_count = 0
-	limit = -1.0
+	# limit = -1.0
 	# with open(
 	# 		"C:/Projects/casino/static/main/slot_logic/Schemes/Scheme.json",
 	# 		"rb",
@@ -156,6 +157,12 @@ def spin_request(request):
 	#encoded_scheme = base64.b64encode(scheme_bytes).decode()
 	#scheme_handle = encoded_scheme  # Пример значения из файла
 	user = User.objects.filter(token=token).first()
+
+	if not Balance.objects.exists():
+		Balance.objects.get_or_create(ProfitBal=0, CyclBal=0)
+
+	Bal = Balance.objects.filter(id=1).first()
+	limit = Bal.CyclBal
 	response_data = {
 			"freeSpinCount": free_spin_count,
 			"bet": bet,
@@ -182,6 +189,14 @@ def spin_request(request):
 	free_spin_count = response.json().get("freeSpinCount")
 	user.balance = balance
 	user.save()
+	if total_win:
+		Bal.CyclBal -= total_win
+		Bal.CyclBal += response.json().get("bet")*0.95
+		Bal.ProfitBal += response.json().get("bet")*0.05
+	else:
+		Bal.CyclBal += response.json().get("bet")*0.95
+		Bal.ProfitBal += response.json().get("bet")*0.05
+	Bal.save()
 	connect_response = {
 			"balance": balance,
 			"totalWin": total_win,

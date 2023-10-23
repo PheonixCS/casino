@@ -149,10 +149,12 @@
 	{% if user.is_authenticated %}
 	<div id="userProfile" class="mobileFixML">
 		<img src="{{ user.avatar.url }}" alt="Аватарка пользователя">
-		<div class="userProfile-mainInfo">
-			<div>{{ user.username }}</div>
-			<div class="statusUP">статус: {{ user.status }}</div>
-		</div>	
+		<a class="button bAccaunt" href="/accaunt">
+			<div class="userProfile-mainInfo">
+				<div>{{ user.username }}</div>
+				<div class="statusUP">статус: {{ user.status }}</div>
+			</div>
+		</a>	
 		<!--<a class="button" href="#">Личный кабинет</a>-->
 		<a class="button" id="logout-button" href="{% url 'logout' %}">
 			<span class="cross-icon"></span>

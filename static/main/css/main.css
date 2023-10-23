@@ -1189,3 +1189,8 @@ input[type="text"] {
   .hideForm2 {
     animation-name: slideOutToRight;
   }
+
+	.bAccaunt {
+		color: none;
+		text-decoration: none;
+	}

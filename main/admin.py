@@ -4,6 +4,7 @@ from .models import Stock
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
+from .models import Balance
 # Register your models here.
 
 admin.site.register(Game)
@@ -18,4 +19,8 @@ class CustomUserAdmin(UserAdmin):
 			#('Important dates', {'fields': ('last_login', 'date_joined')}),
 			('balance',{'fields':('balance',)}),
 	)
+@admin.register(Balance)
+class BalanceAdmin(admin.ModelAdmin):
+	list_display = ("id", "ProfitBal", "CyclBal")
+	pass
 admin.site.register(User, CustomUserAdmin)

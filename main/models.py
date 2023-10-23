@@ -70,3 +70,7 @@ class Payment(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	def __str__(self):
 			return f"Payment #{self.pk}"
+class Balance(models.Model):
+	id = models.AutoField(primary_key=True)
+	ProfitBal = models.FloatField(max_length=10)
+	CyclBal = models.FloatField(max_length=10)

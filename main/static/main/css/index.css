@@ -165,7 +165,11 @@
 
 
 .gameCard {
-    position: relative;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-top: 23px;
 }
 .hiddenCardMenu {
     opacity: 0;
