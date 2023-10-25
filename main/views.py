@@ -148,16 +148,7 @@ def spin_request(request):
 	bet = request.GET.get("bet")
 	lines = [int(line) for line in request.GET.get("lines").split(",")]
 	free_spin_count = 0
-	# limit = -1.0
-	# with open(
-	# 		"C:/Projects/casino/static/main/slot_logic/Schemes/Scheme.json",
-	# 		"rb",
-	# ) as file:
-	# 		scheme_bytes = file.read()
-	#encoded_scheme = base64.b64encode(scheme_bytes).decode()
-	#scheme_handle = encoded_scheme  # Пример значения из файла
 	user = User.objects.filter(token=token).first()
-
 	if not Balance.objects.exists():
 		Balance.objects.get_or_create(ProfitBal=0, CyclBal=0)
 
@@ -175,10 +166,10 @@ def spin_request(request):
 			"wild_ID": -1,
 			"winner": False
 	}
+	
 	response = requests.post(
 			"http://127.0.0.1/static/main/slot_logic/slot.php", json=response_data
 	)
-	#return JsonResponse(response.json())
 	# Проверка наличия ошибки в JSON-ответе
 	if "error" in response.json():
 			# Обработка ошибки
@@ -210,7 +201,6 @@ def spin_request(request):
 			"freeSpinCount": free_spin_count,
 	}
 	return JsonResponse(connect_response)
-
 def take_request(request):
 	token = request.GET.get("token")
 	## проверка на токен

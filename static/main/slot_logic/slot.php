@@ -75,7 +75,7 @@ function ParsePost()
 		$handle = $json->handle;
 	else
 		$handle = 'Scheme';
-
+	// вот тут в зависимоти от OS по разному путь прописать надо
 	$file = __DIR__ . '/Schemes/' . $handle . '.json';
 	if (!file_exists($file)) {
 		SendError("there is no file: " . $file);
