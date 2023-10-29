@@ -12,6 +12,7 @@ from urllib.parse import urlencode
 import hashlib
 import base64
 from datetime import datetime
+import random
 
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
@@ -179,6 +180,7 @@ def spin_request(request):
 	total_win = response.json().get("totalWin")
 	free_spin_count = response.json().get("freeSpinCount")
 	user.balance = balance
+	user.lastTotalWin = total_win
 	user.save()
 	if total_win:
 		Bal.CyclBal -= total_win
@@ -201,7 +203,43 @@ def spin_request(request):
 			"freeSpinCount": free_spin_count,
 	}
 	return JsonResponse(connect_response)
+
 def take_request(request):
 	token = request.GET.get("token")
-	## проверка на токен
+	user = User.objects.filter(token=token).first()
+	user.lastTotalWin = 0
+	user.save()
 	return JsonResponse({"result":"success"})
+
+def double_request(request):
+	Bal = Balance.objects.filter(id=1).first()
+	token = request.GET.get("token")
+	user = User.objects.filter(token=token).first()
+	result = generate_result(0.05,0,0.05)
+	if result:
+	
+		user.balance = float(user.balance) + user.lastTotalWin
+		Bal.CyclBal = Bal.CyclBal - user.lastTotalWin
+		user.lastTotalWin = 0
+		response = {
+			"balance": user.balance,
+			"win": user.lastTotalWin
+		}
+	else:
+		user.balance = float(user.balance) - user.lastTotalWin
+		Bal.CyclBal = Bal.CyclBal + user.lastTotalWin
+		user.lastTotalWin = 0
+		response = {
+			"balance": user.balance,
+			"win": 0
+		}
+	user.save()
+	Bal.save()
+	return JsonResponse(response)
+
+def generate_result(probability, dispersion, expectation):
+	random_value = random.uniform(0, 1)
+	result = random_value <= probability
+	if dispersion > 0:
+			result = random.gauss(expectation, dispersion) >= expectation
+	return result

@@ -17,5 +17,6 @@ urlpatterns = [
 	path("slotsInit/", views.slots_init),
 	
 	path("spinRequest/", views.spin_request),
-	path("takeRequest/", views.take_request)
+	path("takeRequest/", views.take_request),
+	path("doubleRequest/", views.double_request)
 ]

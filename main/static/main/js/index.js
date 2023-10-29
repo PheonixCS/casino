@@ -146,6 +146,14 @@ $(document).ready(function(){
     // анимации иконок игр
     // desktop Version
     $('.gameCard').mouseenter(function(e){
+				$.each($('.gameCard'), function(inf, valf){
+					//console.log($('.gameCard')[inf].children(".hiddenCardMenu"));
+					$(".hiddenCardMenu").stop().animate({opacity:'-=1'},300,false);
+					// $('.gameCard')[inf].css({'opacity':0});
+					// if(valf.children(".hiddenCardMenu")){
+					// 	valf.children(".hiddenCardMenu").stop().animate({opacity:'-=1'},300,false);
+					// }
+				});
         $(this).children(".hiddenCardMenu").css({'display':'flex'});
         $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
         $(".play").mouseenter(function(e){
@@ -197,14 +205,14 @@ $(document).ready(function(){
 	}
 	$('.play').click(function () {
 			var gamePath = $(this).data('gamepath');
-			console.log(gamePath)
+			//console.log(gamePath)
 			// Получение токена текущего пользователя
 			getAuthToken().then(function (token) {
 					// Формирование URL для запуска игры
 					var gameUrl = "/run_game?path=" + gamePath + "&token=" + token;
 					window.open(gameUrl, '_blank');
 					// Здесь можно выполнить дополнительные действия, например, перенаправить на gameUrl
-					console.log('Игра запускается:', gameUrl);
+					//console.log('Игра запускается:', gameUrl);
 			}).catch(function (error) {
 					console.error('Ошибка получения токена:', error);
 			});

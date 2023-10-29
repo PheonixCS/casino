@@ -146,6 +146,14 @@ $(document).ready(function(){
     // анимации иконок игр
     // desktop Version
     $('.gameCard').mouseenter(function(e){
+				$.each($('.gameCard'), function(inf, valf){
+					//console.log($('.gameCard')[inf].children(".hiddenCardMenu"));
+					$(".hiddenCardMenu").stop().animate({opacity:'-=1'},300,false);
+					// $('.gameCard')[inf].css({'opacity':0});
+					// if(valf.children(".hiddenCardMenu")){
+					// 	valf.children(".hiddenCardMenu").stop().animate({opacity:'-=1'},300,false);
+					// }
+				});
         $(this).children(".hiddenCardMenu").css({'display':'flex'});
         $(this).children(".hiddenCardMenu").stop().animate({opacity:'+=1'},300,false);
         $(".play").mouseenter(function(e){
