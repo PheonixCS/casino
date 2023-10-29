@@ -4,6 +4,7 @@ from .models import Stock
 from .models import User
 from .models import Referral
 from .models import Balance
+from .models import GlobalSettings
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import requests
@@ -154,6 +155,7 @@ def spin_request(request):
 		Balance.objects.get_or_create(ProfitBal=0, CyclBal=0)
 
 	Bal = Balance.objects.filter(id=1).first()
+	Config = GlobalSettings.objects.filter(id=2).first()
 	limit = Bal.CyclBal
 	flag = False # здесь нужна логика проверки на активированю акцию.
 	if flag:
@@ -205,11 +207,11 @@ def spin_request(request):
 	if user.freeSpinCount == 0 and request.session.get("lastGameFreeSpin") == False:
 		if total_win:
 			Bal.CyclBal -= total_win
-			Bal.CyclBal += response.json().get("bet")*0.95
-			Bal.ProfitBal += response.json().get("bet")*0.05
+			Bal.CyclBal += response.json().get("bet")*Config.PerReturn
+			Bal.ProfitBal += response.json().get("bet")*(1-Config.PerReturn)
 		else:
-			Bal.CyclBal += response.json().get("bet")*0.95
-			Bal.ProfitBal += response.json().get("bet")*0.05
+			Bal.CyclBal += response.json().get("bet")*Config.PerReturn
+			Bal.ProfitBal += response.json().get("bet")*(1-Config.PerReturn)
 		Bal.save()
 	else:
 		if request.session.get("lastGameFreeSpin"):
