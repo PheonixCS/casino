@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 from .models import Balance
+from .models import Referral
 # Register your models here.
 
 admin.site.register(Game)
@@ -19,9 +20,18 @@ class CustomUserAdmin(UserAdmin):
 			#('Important dates', {'fields': ('last_login', 'date_joined')}),
 			('balance',{'fields':('balance',)}),
 			('freeSpinCount',{'fields':('freeSpinCount',)}),
+			('referrer',{'fields':('referrer',)}),
 	)
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
 	list_display = ("id", "ProfitBal", "CyclBal")
 	pass
 admin.site.register(User, CustomUserAdmin)
+
+
+class ReferralAdmin(admin.ModelAdmin):
+    list_display = ['referrer', 'referred_user','stonks']
+    list_filter = ['referrer', 'referred_user']
+    search_fields = ['referrer__username', 'referred_user__username']
+    list_per_page = 20
+admin.site.register(Referral, ReferralAdmin)

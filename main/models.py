@@ -63,7 +63,7 @@ class User(AbstractUser):
 class Referral(models.Model):
 	referrer = models.ForeignKey(User, on_delete=models.CASCADE)
 	referred_user = models.ForeignKey(User, related_name='referrals', on_delete=models.CASCADE)
-	
+	stonks = models.FloatField(max_length=10, default=0.00)
 
 class Payment(models.Model):
 	amount = models.DecimalField(max_digits=10, decimal_places=2)
