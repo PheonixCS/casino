@@ -78,6 +78,7 @@ class Balance(models.Model):
 	CyclBal = models.FloatField(max_length=10)
 
 class GlobalSettings(models.Model):
+	id = models.AutoField(primary_key=True)
 	PerRef = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Процент прибыли с рефералов')
 	PerReturn = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Общий процент отдачи')
 	def __str__(self):

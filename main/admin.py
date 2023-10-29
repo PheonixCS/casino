@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User
 from .models import Balance
 from .models import Referral
+from .models import GlobalSettings
 # Register your models here.
 
 admin.site.register(Game)
@@ -34,3 +35,8 @@ class ReferralAdmin(admin.ModelAdmin):
     search_fields = ['referrer__username', 'referred_user__username']
     list_per_page = 20
 admin.site.register(Referral, ReferralAdmin)
+
+
+class GlobalSettingsAdmin(admin.ModelAdmin):
+    list_display = ['id','PerRef', 'PerReturn']
+admin.site.register(GlobalSettings, GlobalSettingsAdmin)
