@@ -148,26 +148,42 @@ def spin_request(request):
 	token = request.GET.get("token")
 	bet = request.GET.get("bet")
 	lines = [int(line) for line in request.GET.get("lines").split(",")]
-	free_spin_count = 0
+	
 	user = User.objects.filter(token=token).first()
 	if not Balance.objects.exists():
 		Balance.objects.get_or_create(ProfitBal=0, CyclBal=0)
 
 	Bal = Balance.objects.filter(id=1).first()
 	limit = Bal.CyclBal
-	response_data = {
-			"freeSpinCount": free_spin_count,
-			"bet": bet,
-			"limit": limit,
-			"balance": user.balance,  # Пример значения баланса игрока
-			"handle": "Scheme",  # Пример значения из файла Scheme.json
-			"lines": lines,
-			"ignoreSpecial": ["FreeSpin","Bonus"],
-			"complex_get": False,
-			"wild_ID": -1,
-			"winner": False
-	}
-	
+	flag = False # здесь нужна логика проверки на активированю акцию.
+	if flag:
+		response_data = {
+				"freeSpinCount": user.freeSpinCount,
+				"bet": bet,
+				"limit": limit,
+				"balance": user.balance,  # Пример значения баланса игрока
+				"handle": "Scheme",  # Пример значения из файла Scheme.json
+				"lines": lines,
+				"ignoreSpecial": ["Bonus","FreeSpin"],
+				"complex_get": False,
+				"wild_ID": -1,
+				"winner": False,
+				#"getSpecial" : "FreeSpin=3" # здесь нужна функуия выпадения фриспинов в зависимости от акции
+		}
+	else:
+		response_data = {
+				"freeSpinCount": user.freeSpinCount,
+				"bet": bet,
+				"limit": limit,
+				"balance": user.balance,  # Пример значения баланса игрока
+				"handle": "Scheme",  # Пример значения из файла Scheme.json
+				"lines": lines,
+				"ignoreSpecial": ["Bonus","FreeSpin"],
+				"complex_get": False,
+				"wild_ID": -1,
+				"winner": False,
+		}
+
 	response = requests.post(
 			"http://127.0.0.1/static/main/slot_logic/slot.php", json=response_data
 	)
@@ -178,18 +194,33 @@ def spin_request(request):
 	# Извлечение данных из JSON-ответа
 	balance = response.json().get("balance")
 	total_win = response.json().get("totalWin")
-	free_spin_count = response.json().get("freeSpinCount")
+	user.freeSpinCount = response.json().get("freeSpinCount")
 	user.balance = balance
 	user.lastTotalWin = total_win
 	user.save()
-	if total_win:
-		Bal.CyclBal -= total_win
-		Bal.CyclBal += response.json().get("bet")*0.95
-		Bal.ProfitBal += response.json().get("bet")*0.05
+	if user.freeSpinCount == 1:
+		if request.session.get("lastGameFreeSpin"):
+			pass
+		request.session["lastGameFreeSpin"] = True
+	if user.freeSpinCount == 0 and request.session.get("lastGameFreeSpin") == False:
+		if total_win:
+			Bal.CyclBal -= total_win
+			Bal.CyclBal += response.json().get("bet")*0.95
+			Bal.ProfitBal += response.json().get("bet")*0.05
+		else:
+			Bal.CyclBal += response.json().get("bet")*0.95
+			Bal.ProfitBal += response.json().get("bet")*0.05
+		Bal.save()
 	else:
-		Bal.CyclBal += response.json().get("bet")*0.95
-		Bal.ProfitBal += response.json().get("bet")*0.05
-	Bal.save()
+		if request.session.get("lastGameFreeSpin"):
+			if user.freeSpinCount == 0 and request.session["lastGameFreeSpin"] == True:
+				del request.session["lastGameFreeSpin"]
+			Bal.CyclBal -= total_win
+			Bal.save()
+		else:
+			Bal.CyclBal -= total_win
+			Bal.save()
+			request.session["lastGameFreeSpin"] = True
 	connect_response = {
 			"balance": balance,
 			"totalWin": total_win,
@@ -200,7 +231,7 @@ def spin_request(request):
 			"complex": response.json().get("complex"),
 			"freeSpin": response.json().get("freeSpin"),
 			"bonus": response.json().get("bonus"),
-			"freeSpinCount": free_spin_count,
+			"freeSpinCount": user.freeSpinCount,
 	}
 	return JsonResponse(connect_response)
 

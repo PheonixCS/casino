@@ -18,6 +18,7 @@ class CustomUserAdmin(UserAdmin):
 			#('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
 			#('Important dates', {'fields': ('last_login', 'date_joined')}),
 			('balance',{'fields':('balance',)}),
+			('freeSpinCount',{'fields':('freeSpinCount',)}),
 	)
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
