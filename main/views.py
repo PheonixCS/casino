@@ -14,6 +14,7 @@ import hashlib
 import base64
 from datetime import datetime
 import random
+from django.contrib.auth.decorators import login_required
 
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
@@ -276,3 +277,13 @@ def generate_result(probability, dispersion, expectation):
 	if dispersion > 0:
 			result = random.gauss(expectation, dispersion) >= expectation
 	return result
+
+@login_required
+def update_balance(request):
+	if request.method == 'POST':
+			amount = float(request.POST.get('amount', 0))  # Получаем введенную сумму
+			user = request.user  # Получаем текущего пользователя
+			user.balance = float(user.balance) + amount  # Обновляем баланс пользователя
+			user.save()  # Сохраняем изменения
+			return JsonResponse({'success': True})  # Возвращаем успешный ответ в формате JSON
+	return JsonResponse({'success': False})  # Возвращаем неуспешный ответ в формате JSON

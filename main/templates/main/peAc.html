@@ -358,16 +358,47 @@
 			<div id="moneyHistory" class="layerTwo-MenuText">История</div>
 		</div>
 		<div id="blockMoneyIn" class="block">
-			<form>
-				<label for="amount" class="formText">Введите сумму:</label>
-				<input type="number" step="0.01" min="0" placeholder="0" class="input-cash text-default font-medium lh-1" value="">
-				<label class="paymentMethod formText">Способ оплаты: СПБ</label>
-				<button type="button" class="btn-sbp btn btn-primary" style="margin-bottom: 15px;">
-					<img src="{% static 'main/img/sbp.png' %}" alt="sbp" width="40" style="margin-right: 40px; width:40px;">
-					<div class="text-center card-text-input" style="letter-spacing: normal;">Оплата по СБП</div>
-				</button>
+			<form id="balanceForm" action="{% url 'update_balance' %}" method="post">
+					{% csrf_token %}
+					<label for="amount" class="formText">Введите сумму:</label>
+					<input id="amountInput" type="number" step="0.01" min="0" placeholder="0" class="input-cash text-default font-medium lh-1" value="">
+					<label class="paymentMethod formText">Способ оплаты: СПБ</label>
+					<button id="balanceButton" type="button" class="btn-sbp btn btn-primary" style="margin-bottom: 15px;">
+							<img src="{% static 'main/img/sbp.png' %}" alt="sbp" width="40" style="margin-right: 40px; width:40px;">
+							<div class="text-center card-text-input" style="letter-spacing: normal;">Оплата по СБП</div>
+					</button>
 			</form>
 		</div>
+		<script>
+				document.getElementById('balanceButton').addEventListener('click', function() {
+						var amount = document.getElementById('amountInput').value;
+						var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+						
+						var xhr = new XMLHttpRequest();
+						xhr.open('POST', "{% url 'update_balance' %}", true);
+						xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+						xhr.setRequestHeader('X-CSRFToken', csrftoken);
+						
+						xhr.onreadystatechange = function() {
+								if (xhr.readyState === XMLHttpRequest.DONE) {
+										if (xhr.status === 200) {
+												var response = JSON.parse(xhr.responseText);
+												if (response.success) {
+														// Успешное обновление баланса
+														alert('Баланс успешно обновлен!');
+												} else {
+														// Неуспешное обновление баланса
+														alert('Ошибка при обновлении баланса!');
+												}
+										} else {
+												alert('Ошибка сервера!');
+										}
+								}
+						}
+						
+						xhr.send('amount=' + amount);
+				});
+		</script>
 		<div id="blockMoneyOut" class="block">
 			<div class="solvedOutBalanse">Разрешенная сумма для вывода:</div>
 			<form>
