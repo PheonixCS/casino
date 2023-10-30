@@ -6,6 +6,7 @@ from .models import Referral
 from .models import Balance
 from .models import GlobalSettings
 from .models import ActivatedStock
+from .models import DailyDeposit
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import requests
@@ -16,79 +17,101 @@ import base64
 from datetime import datetime
 import random
 from django.contrib.auth.decorators import login_required
-
+from datetime import date
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
 	games = Game.objects.all()
 	return render(request, 'main/index.html', {'games': games})
 # здесь переписать получаемые объекты на акции
 def stocks(request):
-    stocks = Stock.objects.all()
-    return render(request, 'main/stocks.html', {'stocks': stocks})
+	stocks = Stock.objects.all()
+	return render(request, 'main/stocks.html', {'stocks': stocks})
 def about(request):
 	return render(request,'main/about.html')
 def ruls(request):
 	return render(request,'main/ruls.html')
 def peAc(request):
-    if request.user.is_authenticated:
-        user = request.user
-        if user.status < 4:
-             nextST = user.status+1
-        else:
-             nextST = "max"
-        context = {
-            'nextST' : nextST,
-            'user': user
-        }
-        return render(request,'main/peAc.html', context)
-    else:
-        return render(request,'/') 
+	if request.user.is_authenticated:
+			user = request.user
+			if user.status < 4:
+						nextST = user.status+1
+			else:
+						nextST = "max"
+			context = {
+					'nextST' : nextST,
+					'user': user
+			}
+			return render(request,'main/peAc.html', context)
+	else:
+			return render(request,'/') 
 def part(request):
-    if request.user.is_authenticated:
-        user = request.user
-        referrals = Referral.objects.filter(referrer=user)
-        referral_code = user.referral_code
-        context = {
-            'referrals': referrals,
-            'referral_code': referral_code,
-            'user': user
-        }
-        return render(request, 'main/partnerProgramMain.html', context)
-    return render(request, 'main/partnerProgramMain.html')
+	if request.user.is_authenticated:
+			user = request.user
+			referrals = Referral.objects.filter(referrer=user)
+			referral_code = user.referral_code
+			context = {
+					'referrals': referrals,
+					'referral_code': referral_code,
+					'user': user
+			}
+			return render(request, 'main/partnerProgramMain.html', context)
+	return render(request, 'main/partnerProgramMain.html')
 def register_user(request):
-    if request.method == 'POST':
-        phone_number = request.POST.get('regPhone')
-        referral_code = request.POST.get('referralCode')
-        user = User.objects.create_user(username=phone_number, password='')
-        user = authenticate(username=phone_number, password='')
-        if referral_code:
-            try:
-                referrer = User.objects.get(referral_code=referral_code)
-                referral = Referral(referrer=referrer, referred_user=user)
-                referral.save()
-            except User.DoesNotExist:
-                # Обработка случая, если реферальный код недействителен
-                pass
-        # Создание пользователя без пароля
-        
-        login(request, user)
-        # Дополнительная логика обработки после создания пользователя
-				# Автоматическая активация акции для пользователя
-        stock = Stock.objects.get(name='Приветственный бонус')
-        activated_stock = ActivatedStock(user=user, stock=stock)
-        activated_stock.save()
-        return redirect('/')  # Перенаправление на главную страницу после успешной регистрации
-    return render(request, 'main/index.html')
+	if request.method == 'POST':
+			phone_number = request.POST.get('regPhone')
+			referral_code = request.POST.get('referralCode')
+			user = User.objects.create_user(username=phone_number, password='')
+			user = authenticate(username=phone_number, password='')
+			if referral_code:
+					try:
+							referrer = User.objects.get(referral_code=referral_code)
+							referral = Referral(referrer=referrer, referred_user=user)
+							referral.save()
+					except User.DoesNotExist:
+							# Обработка случая, если реферальный код недействителен
+							pass
+			# Создание пользователя без пароля
+			
+			login(request, user)
+			# Дополнительная логика обработки после создания пользователя
+			# Автоматическая активация акции для пользователя
+			stock = Stock.objects.get(name='Приветственный бонус')
+			activated_stock = ActivatedStock(user=user, stock=stock)
+			activated_stock.save()
+			return redirect('/')  # Перенаправление на главную страницу после успешной регистрации
+	return render(request, 'main/index.html')
 def login_view(request):
-    if request.method == 'POST':
-        phone = request.POST['loginPhone']
-        # TODO: проверить введенный номер телефона и выполнить вход на сайт
-        # ...
-        # пример автоматического входа пользователя
-        user = User.objects.get(username=phone)
-        login(request, user)
-        return redirect('/')  # перенаправление на главную страницу после входа
-    return render(request, 'main/index.html')
+	if request.method == 'POST':
+			phone = request.POST['loginPhone']
+			# TODO: проверить введенный номер телефона и выполнить вход на сайт
+			# ...
+			# пример автоматического входа пользователя
+			user = User.objects.get(username=phone)
+			login(request, user)
+			today = date.today()
+			daily_deposit, created = DailyDeposit.objects.get_or_create(user=user, deposit_date=today)
+			if created:
+				daily_deposit.amount = 0.0
+			# Обновляем статус пользователя в зависимости от суммы пополнения
+			if daily_deposit.amount < 1000:
+				user.status = 1
+				user.update_avatar()
+			elif daily_deposit.amount >= 1000 and daily_deposit.amount <= 2000 and user.status < 2:
+					user.status = 2
+					user.update_avatar()
+			elif daily_deposit.amount > 2000 and daily_deposit.amount <= 5000 and user.status < 3:
+					user.status = 3
+					user.update_avatar()
+			elif daily_deposit.amount > 5000 and daily_deposit.amount <= 10000 and user.status < 4:
+					user.status = 4
+					user.update_avatar()
+			elif daily_deposit.amount > 10000 and user.status < 5:
+					user.status = 5
+					user.update_avatar()
+			daily_deposit.save()
+			user.save()
+			return redirect('/')  # перенаправление на главную страницу после входа
+	return render(request, 'main/index.html')
 def logout_view(request):
 	logout(request)
 	return redirect('/')
@@ -288,6 +311,27 @@ def update_balance(request):
 	if request.method == 'POST':
 			amount = float(request.POST.get('amount', 0))  # Получаем введенную сумму
 			user = request.user  # Получаем текущего пользователя
+
+			today = date.today()
+			daily_deposit, created = DailyDeposit.objects.get_or_create(user=user, deposit_date=today)
+			if created:
+					daily_deposit.amount = 0.0
+			daily_deposit.amount += amount
+			if daily_deposit.amount >= 1000 and daily_deposit.amount < 2000 and user.status < 2:
+					user.status = 2
+					user.update_avatar()
+			elif daily_deposit.amount >= 2000 and daily_deposit.amount < 5000 and user.status < 3:
+					user.status = 3
+					user.update_avatar()
+			elif daily_deposit.amount >= 5000 and daily_deposit.amount < 10000 and user.status < 4:
+					user.status = 4
+					user.update_avatar()
+			elif daily_deposit.amount >= 10000 and user.status < 5:
+					user.status = 5
+					user.update_avatar()
+			daily_deposit.save()
+
+
 			is_promotion_active = ActivatedStock.objects.filter(user=user, stock__name='Приветственный бонус', is_active=True).exists()
 			
 			if not is_promotion_active:

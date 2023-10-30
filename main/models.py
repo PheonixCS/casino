@@ -6,6 +6,10 @@ from imagekit.models import ImageSpecField
 import random
 import string
 import hashlib
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
+from datetime import date
 # Create your models here.
 
 # здесь добавить акции
@@ -62,6 +66,32 @@ class User(AbstractUser):
 			while User.objects.filter(referral_code=code).exists():
 					code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
 			return code
+	def update_avatar(self):
+		if self.status == 1:
+				self.avatar = 'avatars/1s.png'
+		elif self.status == 2:
+				self.avatar = 'avatars/2s.png'
+		elif self.status == 3:
+				self.avatar = 'avatars/3s.png'
+		elif self.status == 4:
+				self.avatar = 'avatars/4s.png'
+		elif self.status == 5:
+				self.avatar = 'avatars/5s.png'
+		self.save()
+@receiver(post_save, sender=User)
+def update_avatar(sender, instance, created, **kwargs):
+	if created:
+			instance.update_avatar()
+class DailyDeposit(models.Model):
+	user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+	deposit_date = models.DateField(default=date.today)
+	amount = models.FloatField(default=0.0)
+	def __str__(self):
+			return f'{self.user} - {self.deposit_date}'
+	class Meta:
+			verbose_name = 'Ежедневное пополнение'
+			verbose_name_plural = 'Ежедневные пополнения'
+
 class Referral(models.Model):
 	referrer = models.ForeignKey(User, on_delete=models.CASCADE)
 	referred_user = models.ForeignKey(User, related_name='referrals', on_delete=models.CASCADE)

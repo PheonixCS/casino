@@ -8,6 +8,7 @@ from .models import Balance
 from .models import Referral
 from .models import GlobalSettings
 from .models import ActivatedStock
+from .models import  DailyDeposit
 # Register your models here.
 
 admin.site.register(Game)
@@ -31,18 +32,23 @@ admin.site.register(User, CustomUserAdmin)
 
 
 class ReferralAdmin(admin.ModelAdmin):
-    list_display = ['referrer', 'referred_user','stonks']
-    list_filter = ['referrer', 'referred_user']
-    search_fields = ['referrer__username', 'referred_user__username']
-    list_per_page = 20
+	list_display = ['referrer', 'referred_user','stonks']
+	list_filter = ['referrer', 'referred_user']
+	search_fields = ['referrer__username', 'referred_user__username']
+	list_per_page = 20
 admin.site.register(Referral, ReferralAdmin)
 
 
 class GlobalSettingsAdmin(admin.ModelAdmin):
-    list_display = ['id','PerRef', 'PerReturn']
+	list_display = ['id','PerRef', 'PerReturn']
 admin.site.register(GlobalSettings, GlobalSettingsAdmin)
 
 class ActivatedStockAdmin(admin.ModelAdmin):
-  list_display = ['user', 'stock', 'is_active']
-  list_filter = ['is_active']
+	list_display = ['user', 'stock', 'is_active']
+	list_filter = ['is_active']
 admin.site.register(ActivatedStock, ActivatedStockAdmin)
+
+class DailyDepositAdmin(admin.ModelAdmin):
+	list_display = ['user', 'deposit_date', 'amount']
+	list_filter = ['deposit_date']
+admin.site.register(DailyDeposit, DailyDepositAdmin)
