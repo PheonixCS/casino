@@ -236,12 +236,24 @@ def spin_request(request):
 	if user.freeSpinCount == 0 and request.session.get("lastGameFreeSpin") == None:
 		if total_win:
 			Bal.CyclBal = float(Bal.CyclBal) - float(total_win)
+		
+		referral_amount = response.json().get("bet") * Config.PerRef 
+		try:
+			referral = Referral.objects.get(referred_user=user)
+			referrer = referral.referrer
+			referrer.balance =float(referrer.balance) + float(referral_amount)  # Добавляем сумму выплаты рефералу к балансу реферера
+			referrer.save()
+			referral.stonks = float(referral.stonks) + float(referral_amount)  # Записываем полученную прибыль с реферала в поле stonks
+			referral.save()
+			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
+			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn-Config.PerRef))
+			Bal.save()
+		except Referral.DoesNotExist:
 			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
 			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn))
-		else:
-			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
-			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn))
-		Bal.save()
+			Bal.save()
+
+		
 	else:
 		if request.session.get("lastGameFreeSpin"):
 			if user.freeSpinCount == 0 and request.session["lastGameFreeSpin"] == True:
