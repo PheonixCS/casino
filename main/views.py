@@ -5,6 +5,7 @@ from .models import User
 from .models import Referral
 from .models import Balance
 from .models import GlobalSettings
+from .models import ActivatedStock
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import requests
@@ -72,6 +73,10 @@ def register_user(request):
         
         login(request, user)
         # Дополнительная логика обработки после создания пользователя
+				# Автоматическая активация акции для пользователя
+        stock = Stock.objects.get(name='Приветственный бонус')
+        activated_stock = ActivatedStock(user=user, stock=stock)
+        activated_stock.save()
         return redirect('/')  # Перенаправление на главную страницу после успешной регистрации
     return render(request, 'main/index.html')
 def login_view(request):
@@ -283,7 +288,24 @@ def update_balance(request):
 	if request.method == 'POST':
 			amount = float(request.POST.get('amount', 0))  # Получаем введенную сумму
 			user = request.user  # Получаем текущего пользователя
-			user.balance = float(user.balance) + amount  # Обновляем баланс пользователя
-			user.save()  # Сохраняем изменения
+			is_promotion_active = ActivatedStock.objects.filter(user=user, stock__name='Приветственный бонус', is_active=True).exists()
+			
+			if not is_promotion_active:
+					user.balance = float(user.balance) + amount  # Обновляем баланс пользователя
+					user.save()  # Сохраняем изменения
+			else:
+					activated_stock = ActivatedStock.objects.get(user=user, stock__name='Приветственный бонус')
+					activated_stock.is_active = False
+					activated_stock.save()
+					bonus = 0
+					if 1000 <= amount <= 2000:
+							bonus = amount * 2
+					elif 2000 < amount <= 5000:
+							bonus = amount * 3
+					elif 5000 < amount <= 10000:
+							bonus = amount * 5
+					user.points = float(user.points) + float(bonus)
+					user.balance = float(user.balance) + amount  # Обновляем баланс пользователя
+					user.save()  # Сохраняем изменения
 			return JsonResponse({'success': True})  # Возвращаем успешный ответ в формате JSON
 	return JsonResponse({'success': False})  # Возвращаем неуспешный ответ в формате JSON

@@ -7,6 +7,7 @@ from .models import User
 from .models import Balance
 from .models import Referral
 from .models import GlobalSettings
+from .models import ActivatedStock
 # Register your models here.
 
 admin.site.register(Game)
@@ -40,3 +41,8 @@ admin.site.register(Referral, ReferralAdmin)
 class GlobalSettingsAdmin(admin.ModelAdmin):
     list_display = ['id','PerRef', 'PerReturn']
 admin.site.register(GlobalSettings, GlobalSettingsAdmin)
+
+class ActivatedStockAdmin(admin.ModelAdmin):
+  list_display = ['user', 'stock', 'is_active']
+  list_filter = ['is_active']
+admin.site.register(ActivatedStock, ActivatedStockAdmin)

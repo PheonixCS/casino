@@ -24,6 +24,8 @@ class Stock(models.Model):
 	description = models.TextField()
 	time = models.DateTimeField()
 	path_to_img = models.ImageField(upload_to='media/stock_images/')
+	def __str__(self):
+			return self.name
 
 class Avatar(models.Model):
 	image = models.ImageField(upload_to='avatars/')
@@ -85,3 +87,10 @@ class GlobalSettings(models.Model):
 			return f'Настройки #{self.pk}'
 	class Meta:
 			verbose_name_plural = 'Настройки'
+
+class ActivatedStock(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+	is_active = models.BooleanField(default=True)
+	def __str__(self):
+			return self.stock.name
