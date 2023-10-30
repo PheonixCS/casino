@@ -96,16 +96,16 @@ def login_view(request):
 			if daily_deposit.amount < 1000:
 				user.status = 1
 				user.update_avatar()
-			elif daily_deposit.amount >= 1000 and daily_deposit.amount <= 2000 and user.status < 2:
+			if daily_deposit.amount >= 1000 and daily_deposit.amount < 2000:
 					user.status = 2
 					user.update_avatar()
-			elif daily_deposit.amount > 2000 and daily_deposit.amount <= 5000 and user.status < 3:
+			if daily_deposit.amount >= 2000 and daily_deposit.amount < 5000:
 					user.status = 3
 					user.update_avatar()
-			elif daily_deposit.amount > 5000 and daily_deposit.amount <= 10000 and user.status < 4:
+			if daily_deposit.amount >= 5000 and daily_deposit.amount < 10000:
 					user.status = 4
 					user.update_avatar()
-			elif daily_deposit.amount > 10000 and user.status < 5:
+			if daily_deposit.amount >= 10000:
 					user.status = 5
 					user.update_avatar()
 			daily_deposit.save()
