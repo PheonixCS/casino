@@ -233,14 +233,14 @@ def spin_request(request):
 		if request.session.get("lastGameFreeSpin"):
 			pass
 		request.session["lastGameFreeSpin"] = True
-	if user.freeSpinCount == 0 and request.session.get("lastGameFreeSpin") == False:
+	if user.freeSpinCount == 0 and request.session.get("lastGameFreeSpin") == None:
 		if total_win:
-			Bal.CyclBal -= total_win
-			Bal.CyclBal += response.json().get("bet")*Config.PerReturn
-			Bal.ProfitBal += response.json().get("bet")*(1-Config.PerReturn)
+			Bal.CyclBal = float(Bal.CyclBal) - float(total_win)
+			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
+			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn))
 		else:
-			Bal.CyclBal += response.json().get("bet")*Config.PerReturn
-			Bal.ProfitBal += response.json().get("bet")*(1-Config.PerReturn)
+			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
+			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn))
 		Bal.save()
 	else:
 		if request.session.get("lastGameFreeSpin"):
