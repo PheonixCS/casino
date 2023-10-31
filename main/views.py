@@ -18,21 +18,60 @@ from datetime import datetime
 import random
 from django.contrib.auth.decorators import login_required
 from datetime import date
+
+
+def statusCheck(user):
+	today = date.today()
+	daily_deposit, created = DailyDeposit.objects.get_or_create(user=user, deposit_date=today)
+	if created:
+		daily_deposit.amount = 0.0
+		daily_deposit.save()
+	# Обновляем статус пользователя в зависимости от суммы пополнения
+	if daily_deposit.amount < 1000:
+		user.status = 1
+		user.update_avatar()
+	if daily_deposit.amount >= 1000 and daily_deposit.amount < 2000:
+			user.status = 2
+			user.update_avatar()
+	if daily_deposit.amount >= 2000 and daily_deposit.amount < 5000:
+			user.status = 3
+			user.update_avatar()
+	if daily_deposit.amount >= 5000 and daily_deposit.amount < 10000:
+			user.status = 4
+			user.update_avatar()
+	if daily_deposit.amount >= 10000:
+			user.status = 5
+			user.update_avatar()
+
+
 def index(request):
 	#return HttpResponse("<h4>test</h4>");
 	games = Game.objects.all()
+	if request.user.is_authenticated:
+		user = request.user
+		statusCheck(user)
 	return render(request, 'main/index.html', {'games': games})
 # здесь переписать получаемые объекты на акции
 def stocks(request):
+	if request.user.is_authenticated:
+		user = request.user
+		statusCheck(user)
 	stocks = Stock.objects.all()
 	return render(request, 'main/stocks.html', {'stocks': stocks})
 def about(request):
+	if request.user.is_authenticated:
+		user = request.user
+		statusCheck(user)
 	return render(request,'main/about.html')
 def ruls(request):
+	if request.user.is_authenticated:
+		user = request.user
+		statusCheck(user)
 	return render(request,'main/ruls.html')
 def peAc(request):
 	if request.user.is_authenticated:
 			user = request.user
+			statusCheck(user)
 			if user.status < 4:
 						nextST = user.status+1
 			else:
@@ -47,6 +86,7 @@ def peAc(request):
 def part(request):
 	if request.user.is_authenticated:
 			user = request.user
+			statusCheck(user)
 			referrals = Referral.objects.filter(referrer=user)
 			referral_code = user.referral_code
 			context = {
@@ -88,27 +128,7 @@ def login_view(request):
 			# пример автоматического входа пользователя
 			user = User.objects.get(username=phone)
 			login(request, user)
-			today = date.today()
-			daily_deposit, created = DailyDeposit.objects.get_or_create(user=user, deposit_date=today)
-			if created:
-				daily_deposit.amount = 0.0
-			# Обновляем статус пользователя в зависимости от суммы пополнения
-			if daily_deposit.amount < 1000:
-				user.status = 1
-				user.update_avatar()
-			if daily_deposit.amount >= 1000 and daily_deposit.amount < 2000:
-					user.status = 2
-					user.update_avatar()
-			if daily_deposit.amount >= 2000 and daily_deposit.amount < 5000:
-					user.status = 3
-					user.update_avatar()
-			if daily_deposit.amount >= 5000 and daily_deposit.amount < 10000:
-					user.status = 4
-					user.update_avatar()
-			if daily_deposit.amount >= 10000:
-					user.status = 5
-					user.update_avatar()
-			daily_deposit.save()
+			statusCheck(user)
 			user.save()
 			return redirect('/')  # перенаправление на главную страницу после входа
 	return render(request, 'main/index.html')
@@ -143,6 +163,9 @@ def get_token(request):
 					{"token": token, "error": 0}
 			)
 def run_game(request):
+	if request.user.is_authenticated:
+		user = request.user
+		statusCheck(user)
 	token = str(request.GET.get("token"))
 	path = request.GET.get("path")
 	url = f"/static/main/games/{path}/index.html?token={token}"
