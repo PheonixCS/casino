@@ -198,19 +198,29 @@ def slots_init(request):
 	return JsonResponse(response_data)
 
 def spin_request(request):
+	# получаем на вход токен, ставку, линии
 	token = request.GET.get("token")
 	bet = request.GET.get("bet")
 	lines = [int(line) for line in request.GET.get("lines").split(",")]
 	
+	# определяем по токену пользовтеля
 	user = User.objects.filter(token=token).first()
+
+	#проверяем что если не заданы балансы создаем
 	if not Balance.objects.exists():
 		Balance.objects.get_or_create(ProfitBal=0, CyclBal=0)
 
+	# получаем глобальные балансы
 	Bal = Balance.objects.filter(id=1).first()
+	# получаем глобальные настройки
 	Config = GlobalSettings.objects.filter(id=2).first()
 	limit = Bal.CyclBal
-	flag = False # здесь нужна логика проверки на активированю акцию.
-	if flag:
+	
+	GetFreeSpeen = False
+	GetBonus = False  
+	# здесь нужна логика проверки на активированю акцию.
+	# дальше, мы решаем выдавать бонусы,фри спины или обычный спин
+	if GetFreeSpeen:
 		response_data = {
 				"freeSpinCount": user.freeSpinCount,
 				"bet": bet,
@@ -218,7 +228,21 @@ def spin_request(request):
 				"balance": user.balance,  # Пример значения баланса игрока
 				"handle": "Scheme",  # Пример значения из файла Scheme.json
 				"lines": lines,
-				"ignoreSpecial": ["Bonus","FreeSpin"],
+				"ignoreSpecial": [],
+				"complex_get": False,
+				"wild_ID": -1,
+				"winner": False,
+				#"getSpecial" : "FreeSpin=3" # здесь нужна функуия выпадения фриспинов в зависимости от акции
+		}
+	elif GetBonus:
+		response_data = {
+				"freeSpinCount": user.freeSpinCount,
+				"bet": bet,
+				"limit": limit,
+				"balance": user.balance,  # Пример значения баланса игрока
+				"handle": "Scheme",  # Пример значения из файла Scheme.json
+				"lines": lines,
+				"ignoreSpecial": [],
 				"complex_get": False,
 				"wild_ID": -1,
 				"winner": False,
@@ -238,6 +262,7 @@ def spin_request(request):
 				"winner": False,
 		}
 
+	#отправляем запрос получаем ответ
 	response = requests.post(
 			"http://127.0.0.1/static/main/slot_logic/slot.php", json=response_data
 	)
@@ -245,13 +270,21 @@ def spin_request(request):
 	if "error" in response.json():
 			# Обработка ошибки
 			return JsonResponse({"error": "An error occurred"})
+	
+
 	# Извлечение данных из JSON-ответа
 	balance = response.json().get("balance")
 	total_win = response.json().get("totalWin")
 	user.freeSpinCount = response.json().get("freeSpinCount")
+	bet = response.json().get("bet")
 	user.balance = balance
 	user.lastTotalWin = total_win
+	if GetBonus:
+		mulbet = 15
+		user.bet = bet*mulbet
 	user.save()
+
+
 	if user.freeSpinCount == 1:
 		if request.session.get("lastGameFreeSpin"):
 			pass
@@ -260,7 +293,7 @@ def spin_request(request):
 		if total_win:
 			Bal.CyclBal = float(Bal.CyclBal) - float(total_win)
 		
-		referral_amount = response.json().get("bet") * Config.PerRef 
+		referral_amount = bet * Config.PerRef 
 		try:
 			referral = Referral.objects.get(referred_user=user)
 			referrer = referral.referrer
@@ -268,12 +301,12 @@ def spin_request(request):
 			referrer.save()
 			referral.stonks = float(referral.stonks) + float(referral_amount)  # Записываем полученную прибыль с реферала в поле stonks
 			referral.save()
-			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
-			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn-Config.PerRef))
+			Bal.CyclBal = float(Bal.CyclBal) + float(bet*Config.PerReturn)
+			Bal.ProfitBal = float(Bal.ProfitBal) + float(bet*(1-Config.PerReturn-Config.PerRef))
 			Bal.save()
 		except Referral.DoesNotExist:
-			Bal.CyclBal = float(Bal.CyclBal) + float(response.json().get("bet")*Config.PerReturn)
-			Bal.ProfitBal = float(Bal.ProfitBal) + float(response.json().get("bet")*(1-Config.PerReturn))
+			Bal.CyclBal = float(Bal.CyclBal) + float(bet*Config.PerReturn)
+			Bal.ProfitBal = float(Bal.ProfitBal) + float(bet*(1-Config.PerReturn))
 			Bal.save()
 
 		
@@ -290,7 +323,7 @@ def spin_request(request):
 	connect_response = {
 			"balance": balance,
 			"totalWin": total_win,
-			"bet": response.json().get("bet"),
+			"bet": bet,
 			"window": response.json().get("window"),
 			"special": response.json().get("special"),
 			"lines": response.json().get("lines"),
@@ -309,9 +342,13 @@ def take_request(request):
 	return JsonResponse({"result":"success"})
 
 def double_request(request):
+	# получаем глобальные балансы казино для учета лимитов
 	Bal = Balance.objects.filter(id=1).first()
+	#получаем токен игрока чтобы получить игрока из бд
 	token = request.GET.get("token")
 	user = User.objects.filter(token=token).first()
+	if not user:
+		return JsonResponse({"error": "An error occurred"})
 	result = generate_result(0.05,0,0.05)
 	if result:
 	
@@ -333,6 +370,69 @@ def double_request(request):
 	user.save()
 	Bal.save()
 	return JsonResponse(response)
+def bonus_game(request):
+	# получаем токен игрока
+	token = request.GET.get("token")
+	# получаем переменную collect collect = 0 играем collect = 1 игрок забирает выигрыш
+	collect = request.GET.get("collect")
+	user = User.objects.filter(token=token).first()
+	# получаем глобальные балансы казино для учета лимитов
+	Bal = Balance.objects.filter(id=1).first()
+	if not user and (collect != 0 or collect != 1):
+		return JsonResponse({"error": "An error occurred"})
+	if collect == 0: # если играем
+		step = user.step # получаем текущий шаг
+		stepBalance = user.stepBalance # получаем накопленный выигрыш
+		balance = user.balance # получаем текущий баланс игрока
+		if step == 1: # если первый шаг, то 100% победа
+			win = random.uniform(1, user.bet)
+			if(stepBalance+win < Bal.CyclBal):
+				stepBalance += win
+				Bal.CyclBal = float(Bal.CyclBal)-float(stepBalance)
+			else: # если не уложились в лимит принудительно ставим выгрыш 1
+				win = 1
+			step += 1
+		else: # если шаг не первый
+			result = generate_result(0.5**step,0,0.05) # определяем победил игрок или нет
+			if result: # если победил
+				win = random.uniform(1, user.bet) # определяем сколько выиграл 
+				if(stepBalance+win < Bal.CyclBal): # проверям екладываемся в лимит или нет
+					stepBalance += win # акумулируем выгрыш
+					Bal.CyclBal = float(Bal.CyclBal)-float(stepBalance) # меняем лимиты
+					step += 1
+				else: # если не уложились в лимиты
+					win = 0 # выигрыш 0
+					Bal.CyclBal = float(Bal.CyclBal)+float(user.stepBalance ) # востанавливаем лимиты
+					user.stepBalance = 0 # сбрасываем накопленный выгирыш
+					user.bet = 0 # сбрасываем сохраненную ставку
+					user.step = 1 # сбрасываем счетчик ходов
+			else: # проигрыш, логика аналогична лимитам
+				win = 0 
+				Bal.CyclBal = float(Bal.CyclBal)+float(user.stepBalance )
+				user.stepBalance = 0
+				user.bet = 0
+				user.step = 1
+		response = {
+			"win": win,
+			"balanse": balance
+		}
+		user.step = step
+		user.stepBalance = stepBalance
+	else: # если игрок забирает выгрыш то сохраняем выгрыш
+		response = {
+			"win": 0,
+			"balanse": balance+user.stepBalance
+		}
+		user.stepBalance = 0
+		user.balance = balance+user.stepBalance
+		user.bet = 0
+		user.step = 1
+	user.save()
+	Bal.save()
+
+	return JsonResponse(response)
+	
+		
 
 def generate_result(probability, dispersion, expectation):
 	random_value = random.uniform(0, 1)

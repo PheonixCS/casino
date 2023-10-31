@@ -19,5 +19,7 @@ urlpatterns = [
 	path("spinRequest/", views.spin_request),
 	path("takeRequest/", views.take_request),
 	path("doubleRequest/", views.double_request),
+	path("bonusGame/", views.bonus_game),
 	path('update_balance/', views.update_balance, name='update_balance'),
+	
 ]

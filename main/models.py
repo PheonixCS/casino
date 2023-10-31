@@ -14,14 +14,14 @@ from datetime import date
 
 # здесь добавить акции
 class Game(models.Model):
-			GameName = models.CharField(max_length=255)
-			lastRun = models.DateTimeField(null=True, blank=True)
-			countRun = models.IntegerField(null=True, blank=True)
-			gamePath = models.CharField(max_length=255, null=True, blank=True)
-			gamePathDemo = models.CharField(max_length=255, null=True, blank=True)
-			icoPath = models.ImageField(upload_to='media/gameImg_images/')
-			def __str__(self):
-					return self.GameName
+	GameName = models.CharField(max_length=255)
+	lastRun = models.DateTimeField(null=True, blank=True)
+	countRun = models.IntegerField(null=True, blank=True)
+	gamePath = models.CharField(max_length=255, null=True, blank=True)
+	gamePathDemo = models.CharField(max_length=255, null=True, blank=True)
+	icoPath = models.ImageField(upload_to='media/gameImg_images/')
+	def __str__(self):
+			return self.GameName
 
 class Stock(models.Model):
 	name = models.CharField(max_length=100)
@@ -54,6 +54,11 @@ class User(AbstractUser):
 	balance = models.FloatField(max_length=10, default=0.00)
 	lastTotalWin = models.FloatField(max_length=10, default=0.00)
 	freeSpinCount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+	bet = models.FloatField(max_length=10, default=0.00)
+	step = models.IntegerField(choices=STATUS_CHOICES, default=1)
+	stepBalance = models.FloatField(max_length=10, default=0.00)
+
 	token = models.CharField(max_length=32, blank=True, null=True)
 	def save(self, *args, **kwargs):
 			if not self.referral_code:
